@@ -18,11 +18,11 @@ const Login = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         try {
-            const url = "http://localhost:5173/api/auth"
+            const url = "http://localhost:5555/api/auth"
             const {data: res} = await axios.post(url, data)
             localStorage.setItem('token', res.data)
             window.location = '/'
-           
+            this.setState({ isLoggedIn: true });
         } catch (error) {
             if(error.response &&
                 error.response.status >= 400 &&

@@ -21,9 +21,9 @@ const Signup = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         try {
-            const url = "http://localhost:5173/api/users"
+            const url = "http://localhost:5555/api/users"
             const {data: res} = await axios.post(url, data)
-            navigate('/login') // เมื่อ Sign Up เสร็จสิ้นให้ไปยังหน้า Login
+            window.location = '/login' // เมื่อ Sign Up เสร็จสิ้นให้ไปยังหน้า Login
             console.log(res.message)
         } catch (error) {
             if(error.response &&

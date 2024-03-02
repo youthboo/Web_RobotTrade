@@ -17,9 +17,8 @@ function App() {
         <Route path='/trade' element={<About />}/>
         <Route path='/portfolio' element={<Service />}/>
         <Route path='/aboutus' element={<Contact />}/>
-        <Route path='/signup' exact element={<Signup />}/>
-        <Route path='/login' exact element={<Login />}/>
-
+        <Route path='/signup' element={<Signup />}/>
+        <Route path='/login' element={<Login />}/>
         
       </Routes>
 

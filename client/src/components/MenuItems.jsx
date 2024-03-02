@@ -22,7 +22,5 @@ export const MenuItems = [
         url : '/aboutus',
         cName : 'nav-links',
         icon : 'fa-solid fa-address-book'
-    },
-   
-
+    }
 ]

@@ -1,16 +1,25 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import './NavbarStyles.css';
 import { MenuItems } from './MenuItems';
 import { Link } from 'react-router-dom';
 
+class Navbar extends Component {
+    state = {
+        clicked: false,
+        isLoggedIn: true 
+    };
 
-class Navbar extends Component{
-    state = {clicked: false};
     handleClicked = () => {
-        this.setState({ clicked: !this.state.clicked})
+        this.setState({ clicked: !this.state.clicked });
     }
-    render(){
-        return(
+
+    handleLogout = () => {
+        localStorage.removeItem('token');
+        this.setState({ isLoggedIn: false });
+    }
+
+    render() {
+        return (
             <nav className='NavbarItems'>
                 <h1 className='navbar-logo'>Robot Trade</h1>
                 <div className='menu-icons' onClick={this.handleClicked}>
@@ -19,22 +28,33 @@ class Navbar extends Component{
 
                 <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
                     {MenuItems.map((item, index) => {
-                        return(
+                        return (
                             <li key={index}>
-                                <Link className= {item.cName} to={item.url}>
+                                <Link className={item.cName} to={item.url}>
                                     <i className={item.icon}></i>{item.title}
                                 </Link>
                             </li>
-                        )
+                        );
                     })}
-                    <Link to='/signup'>
-                        <button className='nav-links'>Sign Up</button>
-                    </Link>
                     
+                    {this.state.isLoggedIn ? (
+                        <button className='nav-links' onClick={this.handleLogout}>Logout</button>
+                    ) : (
+                        <>
+                            <Link to='/login'>
+                                <button className='nav-links'>Log in</button>
+                            </Link>
+                            <Link to='/signup'>
+                                <button className='nav-links'>Sign up</button>
+                            </Link>
+                        </>
+                    )}
                 </ul>
             </nav>
-        )
+        );
     }
 }
 
 export default Navbar;
+
+
