@@ -19,10 +19,19 @@ const Login = () => {
         e.preventDefault()
         try {
             const url = "http://localhost:5555/api/auth"
-            const {data: res} = await axios.post(url, data)
-            localStorage.setItem('token', res.data)
-            window.location = '/'
-            this.setState({ isLoggedIn: true });
+            const {data: res} = await axios.post(url, {
+                email: e.target.email.value,
+                password: e.target.password.value
+            })
+            localStorage.setItem('token', JSON.stringify(res.data));
+            console.log(res.data);
+            if (res.data.isAdmin) {
+                // Redirect admin to admin dashboard
+                window.location = '/admin/dashboard';
+            } else {
+                // Redirect non-admin user to default dashboard
+                window.location = '/';
+            }
         } catch (error) {
             if(error.response &&
                 error.response.status >= 400 &&
@@ -77,4 +86,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;

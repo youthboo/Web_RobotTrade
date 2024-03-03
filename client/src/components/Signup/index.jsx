@@ -59,6 +59,15 @@ const Signup = () => {
                             className={styles.input} 
                         />
                         <input
+                            type='port'
+                            placeholder='Port Number'
+                            name='port'
+                            onChange={handleChange}
+                            value={data.port}
+                            required
+                            className={styles.input} 
+                        />
+                        <input
                             type='text'
                             placeholder='Name'
                             name='name'

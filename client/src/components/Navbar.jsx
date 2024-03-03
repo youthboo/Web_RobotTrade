@@ -6,8 +6,25 @@ import { Link } from 'react-router-dom';
 class Navbar extends Component {
     state = {
         clicked: false,
-        isLoggedIn: true 
+        isLoggedIn: true,
+        username: ''
     };
+
+    componentDidMount() {
+        const tokenData = localStorage.getItem('token');
+        if (tokenData) {
+            try {
+                const token = JSON.parse(tokenData);
+                this.setState({ user: token.user }, () => {
+                    console.log(this.state);
+                });
+            } catch (error) {
+                console.error('Invalid token data:', error);
+                // Handle invalid token data here
+            }
+        }
+    }
+    
 
     handleClicked = () => {
         this.setState({ clicked: !this.state.clicked });
@@ -38,7 +55,15 @@ class Navbar extends Component {
                     })}
                     
                     {this.state.isLoggedIn ? (
-                        <button className='nav-links' onClick={this.handleLogout}>Logout</button>
+                        <>
+                            <li>
+                                <button className=''>{this.state.user}  </button>
+                            </li>
+                            <li>
+                                <button className='nav-links' onClick={this.handleLogout}>Logout</button>
+                            </li>
+                            
+                        </>
                     ) : (
                         <>
                             <Link to='/login'>
@@ -55,6 +80,10 @@ class Navbar extends Component {
     }
 }
 
+
 export default Navbar;
+
+
+
 
 
