@@ -89,6 +89,7 @@ function UserList() {
               <th>Port</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -99,6 +100,7 @@ function UserList() {
                 <td>{user.port}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+                <td>{user.status}</td>
                 <td className="actions">
                   <Link to={`/admin/users/${user._id}/edit`}>
                     <button className="edit-button">Edit</button>

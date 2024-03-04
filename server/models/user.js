@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     token: { type: String },
+    status: {type: String, default: 'Active'},
     isAdmin: { type: Boolean, default: false } // เพิ่มฟิลด์ isAdmin
 });
 
@@ -27,6 +28,7 @@ const validate = (data) => {
         name: Joi.string().required().label('Name'),
         email: Joi.string().email().required().label('Email'),
         password: passwordComplexity().required().label('Password'),
+        
     })
     return schema.validate(data)
 }

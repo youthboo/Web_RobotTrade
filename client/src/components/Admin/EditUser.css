@@ -3,26 +3,29 @@
     margin: 180px auto; /* จัดให้กล่อง edit-user มาอยู่กลางหน้ากระดาษ */
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    display: block;
+    border-radius: 10px;
+    background-color: #fff; /* เพิ่มสีพื้นหลังให้กับแบบฟอร์ม */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้กับกล่อง edit-user */
+}
+
+.form-group {
+    margin-bottom: 40px;
+}
+
+.label {
+    display: flex;
     margin-bottom: 5px;
-  }
-  
-  input {
+}
+
+.input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
-  
-  button {
+    font-size: 16px; /* เพิ่มขนาดตัวอักษรให้เพิ่มขึ้น */
+}
+
+.button {
     display: block;
     width: 100%;
     padding: 10px;
@@ -31,12 +34,13 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
+    font-size: 16px; /* เพิ่มขนาดตัวอักษรให้เพิ่มขึ้น */
+}
 
-  a {
-    text-decoration: none; /* ลบเส้นใต้ของลิงค์ */
-  }
+.button:hover {
+    background-color: #0056b3;
+}
+
+.a {
+    text-decoration: none; 
+}

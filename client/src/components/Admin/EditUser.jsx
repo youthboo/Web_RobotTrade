@@ -10,6 +10,7 @@ function EditUser() {
     port: '',
     name: '',
     email: '',
+    status: '',
   });
 
   // Function to fetch user data by ID
@@ -53,9 +54,9 @@ function EditUser() {
       <form onSubmit={handleSubmit}>
         
         <div className="form-group">
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name">Name: </label>
           <input
-            type="text"
+            type="name"
             id="name"
             name="name"
             value={user.name}
@@ -63,12 +64,22 @@ function EditUser() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email: </label>
           <input
             type="email"
             id="email"
             name="email"
             value={user.email}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="status">Status: </label>
+          <input
+            type="status"
+            id="status"
+            name="status"
+            value={user.status}
             onChange={handleChange}
           />
         </div>
