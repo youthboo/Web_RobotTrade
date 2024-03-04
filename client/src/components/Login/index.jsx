@@ -27,7 +27,7 @@ const Login = () => {
             console.log(res.data);
             if (res.data.isAdmin) {
                 // Redirect admin to admin dashboard
-                window.location = '/admin/dashboard';
+                window.location = '/admin';
             } else {
                 // Redirect non-admin user to default dashboard
                 window.location = '/';

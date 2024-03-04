@@ -1,0 +1,85 @@
+.dashboard {
+  position: relative;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #003366;
+  color: #fff;
+  cursor: pointer;
+}
+
+.hamburger-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-button i {
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+ 
+
+.logo h1 {
+  margin: 0;
+}
+
+.admin-btn button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.admin-btn button:hover {
+  background-color: #0056b3;
+}
+
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: #AFEEEE;
+  padding: 20px;
+  transition: width 0.3s ease;
+}
+
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.sidebar li {
+  display: flex;
+  padding: 10px 10px;
+  cursor: pointer;
+  margin-top: 15px;
+
+}
+
+.sidebar li a {
+  text-decoration: none; 
+  color: inherit; 
+  font-weight: bold;
+}
+
+.sidebar li:hover {
+  background-color: #FFFF66;
+  cursor: pointer;
+}
+
+.icon {
+  width: 30px; /* ปรับขนาดของรูปภาพตามต้องการ */
+  height: 30px; /* ปรับขนาดของรูปภาพตามต้องการ */
+  margin-right: 10px; /* ระยะห่างของรูปภาพกับข้อความ */
+}
+

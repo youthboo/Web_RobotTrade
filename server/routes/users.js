@@ -25,5 +25,61 @@ router.post("/",async(req, res) => {
 
 })
 
+// GET all users
+router.get('/', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).send(users);
+    } catch (error) {
+        res.status(500).send({ message: 'Internal Server Error' });
+    }
+});
+
+// UPDATE USER
+router.put("/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    if (req.body.email !== user.email) {
+      const emailInUse = await User.findOne({ email: req.body.email });
+      if (emailInUse) {
+        return res.status(400).send("Email already in use");
+      }
+    }
+
+    if (req.body.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+      user.password = hashedPassword;
+    }
+
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin || user.isAdmin;
+    user.status = req.body.status || user.status; // อัปเดตสถานะของผู้ใช้
+
+    const updatedUser = await user.save();
+
+    res.status(200).send({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      status: updatedUser.status, // เพิ่มสถานะในการส่งข้อมูลกลับไปยังไคลเอนต์
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 module.exports = router;
+
+
+module.exports = router;
+
+

@@ -6,8 +6,11 @@ import Service from './routes/Portfolio';
 import Contact from './routes/Contact';
 import Signup from './components/Signup/index';
 import Login from './components/Login/index';
-import AppAdmin from './components/Admin/AppAdmin';
-import Dashboard from './components/Admin/Dashboard';
+import Dash from './components/Admin/Dashboard'
+import Summary from './components/Admin/Summary';
+import UserList from './components/Admin/UserList';
+import Model from './components/Admin/Model';
+import EditUser from './components/Admin/EditUser';
 
 function App() {
   
@@ -22,8 +25,12 @@ function App() {
         <Route path='/aboutus' element={<Contact />}/>
         <Route path='/signup' element={<Signup />}/>
         <Route path='/login' element={<Login />}/>
-        <Route path='/admin' element={<AppAdmin />}/>
-        <Route path='/admin/dashboard' element={<Dashboard />}/>
+        <Route path='/admin' element={<Dash />}/>
+          <Route path="/admin/summary" element={<Summary/>} />
+          <Route path="/admin/userlist" element={<UserList/>} />
+          <Route path="/admin/model" element={<Model/>} />
+          <Route path="/admin/users/:id/edit" element={<EditUser />} />
+
       </Routes>
 
     </div>

@@ -1,0 +1,55 @@
+
+table {
+    width: 70%; 
+    margin: 0 auto; 
+    border-collapse: collapse;
+    background-color: #003399; 
+    border-radius: 8px; /* Set border-radius to create rounded corners */
+    overflow: hidden;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: white;
+}
+
+
+th {
+    background-color: #003399; 
+}
+
+
+tr:nth-child(even) {
+    background-color: #ffffff; 
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff; 
+}
+
+
+td {
+    color: black; 
+}
+
+.actions {
+    display: flex;
+    gap: 5px;
+}
+
+.edit-button {
+    width: 80px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .edit-button:hover {
+    background-color: #45a049;
+  }
+  
