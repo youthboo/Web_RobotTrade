@@ -1,12 +1,12 @@
 import React from "react";
 import Navbar from "../Navbar";
 
-function UserPort () {
+function BotConnect () {
     return (
         <Navbar >
-            <div>Hell World</div>
+            <div>Bot Noi</div>
         </Navbar>
     )
 }
 
-export default UserPort
+export default BotConnect

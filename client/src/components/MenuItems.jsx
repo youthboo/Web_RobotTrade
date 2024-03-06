@@ -18,8 +18,8 @@ export const MenuItems = [
         icon : 'fa-solid fa-briefcase'
     },
     {
-        title : 'About Us',
-        url : '/aboutus',
+        title : 'Payment',
+        url : '/payment',
         cName : 'nav-links',
         icon : 'fa-solid fa-address-book'
     }

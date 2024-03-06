@@ -14,7 +14,7 @@ function About () {
             title = 'Bot AI'
             text = 'Let your bot learn and decide by itself.'
             buttonText = 'Start Trading'
-            /*url = '/' */
+            url = '/trade/botConnect' 
             btnClass = 'show'
         />
         <AboutUs />

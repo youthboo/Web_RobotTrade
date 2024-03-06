@@ -1,27 +1,27 @@
 import Navbar from '../components/Navbar'
-import ServiceImage from '../assets/portpic.jpg'
+import ContactImage from '../assets/night.jpg'
 import Hero from '../components/Hero'
 import Footer from '../components/Footer'
-import Trip from '../components/Trip'
+import ContactForm from '../components/ContactForm'
 
-function Service () {
+function Payment () {
     return(
         <>
         <Navbar />
         <Hero 
             cName = 'hero-mid'
-            heroImg = {ServiceImage}
-            title = 'Portfolio'
+            heroImg = {ContactImage}
+            title = 'Payment'
             /*text = 'Choose Your Favorite Destination.'
             buttonText = 'Travel Plan'
             url = '/' */
             btnClass = 'hide'
         />
-        <Trip />
+        <ContactForm />
         <Footer />
         </>
     )
 
 }
 
-export default Service;
+export default Payment;

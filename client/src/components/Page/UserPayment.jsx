@@ -1,12 +1,12 @@
 import React from "react";
 import Navbar from "../Navbar";
 
-function UserPort () {
+function UserPayment () {
     return (
         <Navbar >
-            <div>Hell World</div>
+            <div>UserPayment</div>
         </Navbar>
     )
 }
 
-export default UserPort
+export default UserPayment
