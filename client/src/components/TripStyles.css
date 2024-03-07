@@ -57,3 +57,8 @@
         margin-bottom: 1.5rem;
     }
 }
+
+.trip {
+    margin: 9rem 6rem 4rem 6rem; /* เพิ่มค่า margin-top และ margin-bottom เพื่อเลื่อนไปที่ต้องการ */
+    color: #2a2a2a;
+}

@@ -1,12 +1,20 @@
+// BotConnect.js
 import React from "react";
 import Navbar from "../Navbar";
 
-function BotConnect () {
-    return (
-        <Navbar >
-            <div>Bot Noi</div>
-        </Navbar>
-    )
+import Trip from "../Trip";
+
+
+function BotConnect() {
+
+return (
+    <div className="pageContainer">
+        <Navbar />
+
+        
+        <Trip />
+    </div>
+);
 }
 
-export default BotConnect
+export default BotConnect;
