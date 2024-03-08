@@ -7,18 +7,17 @@ import ContactForm from '../components/ContactForm'
 function Payment () {
     return(
         <>
-        <Navbar />
-        <Hero 
-            cName = 'hero-mid'
-            heroImg = {ContactImage}
-            title = 'Payment'
-            /*text = 'Choose Your Favorite Destination.'
-            buttonText = 'Travel Plan'
-            url = '/' */
-            btnClass = 'hide'
-        />
-        <ContactForm />
-        <Footer />
+            <Navbar />
+            <Hero 
+                cName = 'hero-mid'
+                heroImg = {ContactImage}
+                title= 'Payment'
+                buttonText= "Let go Payment"
+                url = '/payment/userPayment' 
+                btnClass = 'show'
+            />
+            <ContactForm />
+            <Footer />
         </>
     )
 

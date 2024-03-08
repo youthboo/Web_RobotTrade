@@ -1,0 +1,80 @@
+.container {
+  margin: 50px auto;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.card {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  margin-top: 50px;/* เพิ่มค่า margin-top เพื่อเว้นระยะห่างด้านบน */
+  padding: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.btn {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+input[type="number"],
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  margin-bottom: 20px;
+}
+
+svg {
+  max-width: 100%;
+  height: auto;
+}
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  font-size: 16px;
+}
+
+button:hover {
+  text-decoration: underline;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-body > *:not(:last-child) {
+  margin-bottom: 10px;
+}

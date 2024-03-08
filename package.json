@@ -4,12 +4,16 @@
     "@material-ui/icons": "^4.11.3",
     "@material-ui/styles": "^4.11.5",
     "bcrypt": "^5.1.1",
+    "fs": "^0.0.1-security",
     "jason": "^2.0.0",
     "joi": "^17.12.2",
     "joi-password-complexity": "^5.2.0",
     "jsonwebtoken": "^9.0.2",
+    "qrcode": "^1.5.3",
+    "qrcode.react": "^3.1.0",
     "react-redux": "^9.1.0",
     "styled-components": "^6.1.8",
+    "sweetalert2": "^11.10.6",
     "zeromq": "^6.0.0-beta.19"
   },
   "devDependencies": {

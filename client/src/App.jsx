@@ -24,11 +24,11 @@ function App() {
         {user ? <Route path='/' element={<Home />} /> : null}
         <Route path='/' element={<Home />}/>
         <Route path='/trade' element={<About />}/>
-        <Route path='/trade/botConnect' element={<BotConnect />}/>
+          <Route path='/trade/botConnect' element={<BotConnect />}/>
         <Route path='/portfolio' element={<Portfolio />}/>
-        <Route path='/portfolio/userPort' element={<UserPort />}/>
+          <Route path='/portfolio/userPort' element={<UserPort />}/>
         <Route path='/payment' element={<Payment />}/>
-        <Route path='/userPayment' element={<UserPayment />}/>
+          <Route path='/payment/userPayment' element={<UserPayment />}/>
         <Route path='/signup' element={<Signup />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/admin' element={<Dash />}/>
