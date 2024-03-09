@@ -7,6 +7,7 @@ const UserPort = () => {
     const [loading, setLoading] = useState(false);
     const [userLogin, setUserLogin] = useState('');
     const [showData, setShowData] = useState(false); 
+    const [commissionPayment, setCommissionPayment] = useState(0); // เพิ่ม state สำหรับเก็บ commissionPayment
 
     useEffect(() => {
         if (showData) {
@@ -36,10 +37,20 @@ const UserPort = () => {
 
     const filteredData = mt4Data.filter(data => data.userLogin === userLogin);
     
-    // หาผลรวมของข้อมูลในคอลัมน์ "Profit"
     const totalProfit = filteredData.reduce((total, data) => total + data.profit, 0);
-    // คำนวณเงินที่ต้องจ่ายสำหรับ commission โดยใช้ 7% ของผลกำไร
-    const commissionPayment = totalProfit * 0.1;
+
+    const handleSaveCommissionPayment = () => {
+        sendCommissionPayment(commissionPayment);
+    };
+
+    const sendCommissionPayment = async (commissionPayment) => {
+        try {
+            const response = await axios.post('http://localhost:5555/api/commission', { userLogin, commissionPayment }); // ส่ง userLogin และ commissionPayment ไปด้วย
+            console.log('Commission payment sent successfully');
+        } catch (error) {
+            console.error('Error sending commission payment:', error);
+        }
+    };
 
     return (
         <div>
@@ -59,6 +70,7 @@ const UserPort = () => {
                 <div>
                     <p>Total Profit: {totalProfit}</p>
                     <p>Commission Payment: {commissionPayment}</p>
+                    <button onClick={handleSaveCommissionPayment}>Save Commission Payment</button> {/* เพิ่มปุ่มเพื่อบันทึก commissionPayment */}
                     <table>
                         <thead>
                             <tr>

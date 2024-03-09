@@ -1,93 +1,125 @@
-const UserPort = () => {
-  const [mt4Data, setMt4Data] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [userLogin, setUserLogin] = useState('');
-  const [showData, setShowData] = useState(false); 
-  const [currentMonthData, setCurrentMonthData] = useState([]); // เก็บข้อมูลของเดือนปัจจุบัน
+import React, { useState } from 'react';
+import Navbar from "../Navbar";
+import './UserPayment.css'
 
-  useEffect(() => {
-      if (showData) {
-          fetchData(); 
-      }
-  }, [showData]);
+function userPayment() {
+    const [amount, setAmount] = useState(0);
+    const [qrCode, setQrCode] = useState('');
+    const [file, setFile] = useState();
+    // const secret = process.env.REACT_APP_KEY;
 
-  useEffect(() => {
-      // เมื่อเริ่มเดือนใหม่ (วันที่ 1) ให้ล้างข้อมูลของเดือนเก่าทิ้งและคำนวณ profit และ commission payment ใหม่
-      const currentDate = new Date();
-      if (currentDate.getDate() === 1) {
-          setCurrentMonthData([]);
-      }
-  }, []);
+    
+    // const [amountCheck, setAmountCheck] = useState(0);
+    // console.log(file);
+  
+            const generateQrCode = async (event) => {
+              try {
+                event.preventDefault(); // Prevent page refresh
+                const response = await fetch('http://localhost:5555/api/payment', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ amount }),
+                });
+  
+                if (!response.ok) {
+                  throw new Error('Failed to generate QR code');
+                }
+  
+                const svg = await response.text();
+                setQrCode(svg);
+              } catch (error) {
+                console.error('Error:', error);
+              }
+            };
+  
+            const checkSlip = async (event) => {
+              try {
+                event.preventDefault(); // Prevent page refresh
+                  const formData = new FormData() ;
+                  formData.append('file', file);
+                const res = await fetch('https://developer.easyslip.com/api/v1/verify', {
+                  method: 'POST',
+                  headers: {
+                    'Authorization': `Bearer ${process.env.REACT_APP_KEY}`
+                  },
+                  body: formData,
+                });
+                if (!res.ok) {
+                  throw new Error('Failed to verify payment');
+                }
+                const responseData = await res.json();
+                const receivedAmount = JSON.stringify(responseData.data.amount.amount) ;
+                // console.log(receivedAmount);
+                // setAmountCheck(receivedAmount);
+                if (receivedAmount === amount) {
+                  console.log('Success');
+                  // alert('Your payment is successful '+ amountCheck);
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Your payment is successful',
+                    showConfirmButton: false,
+                    timer: 3000,
+                  });
+                } 
+                else {
+                  throw new Error('Something failed');
+                }
+  
+              } catch (error) {
+                console.error('Error', error);
+              }
+            };   
+            
+            const handleFileChange = (event) => {
+              const selectedFile = event.target.files[0];
+              setFile(selectedFile);
+            };
+            
+   
+          return (
+            <>
+              <div className='container'>
+                <div className='card '>
+                  <div className='card-body'>
+                    <label className='form-label'> Amount:</label>
 
-  const handleLoginChange = (event) => {
-      setUserLogin(event.target.value);
-  };
+                      <input
+                      className='form-control'
+                        type="number"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                      />
 
-  const handleButtonClick = () => {
-      setShowData(true); 
-  };
-
-  const fetchData = async () => {
-      try {
-          setLoading(true);
-          const response = await axios.get('http://localhost:5555/api/mt4data');
-          setMt4Data(response.data);
-          setCurrentMonthData(response.data); // เมื่อมีการ fetch ข้อมูลใหม่ให้เซ็ตข้อมูลของเดือนปัจจุบันด้วย
-      } catch (error) {
-          console.error('Error fetching MT4 data:', error);
-      } finally {
-          setLoading(false);
-      }
-  };
-
-  // คำนวณ profit และ commission payment จากข้อมูลของเดือนปัจจุบัน
-  const totalProfit = currentMonthData.reduce((total, data) => total + data.profit, 0);
-  const commissionPayment = parseFloat((totalProfit * 0.07).toFixed(2));
-
-  return (
-      <div>
-          <h1 className='topic'>My Portfolio</h1>
-          <div className="input-container">
-              <label htmlFor="loginInput">Enter your Port Number</label>
-              <input 
-                  className='input-portnum'
-                  type="text" 
-                  id="loginInput" 
-                  value={userLogin} 
-                  onChange={handleLoginChange} 
-              />
-              <button className='btn-showdata' onClick={handleButtonClick}>Show Data</button>
-          </div>
-          {showData && !loading && (
-              <div>
-                  <p>Total Profit: {totalProfit.toFixed(2)}</p>
-                  <p>Commission Payment: {commissionPayment.toFixed(2)}</p>
-                  <table>
-                      <thead>
-                          <tr>
-                              <th>User Login</th>
-                              <th>Balance</th>
-                              <th>Equity</th>
-                              <th>Profit</th>
-                              <th>Symbol</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          {currentMonthData.map(data => (
-                              <tr key={data._id}>
-                                  <td>{data.userLogin}</td>
-                                  <td>{data.balance}</td>
-                                  <td>{data.equity}</td>
-                                  <td>{data.profit.toFixed(2)}</td>
-                                  <td>{data.symbol}</td>
-                              </tr>
-                          ))}
-                      </tbody>
-                  </table>
+                      <br/>
+                    
+                    <button className='btn btn-success m-1' onClick={generateQrCode}>Generate QR Code</button>
+                          <br/>
+                          {qrCode && (
+                            <div className='card' >
+                                  <div className='card-body'>
+                                    <h2 className='card-title'>QR Code:</h2>
+                                      <div classname="qrcode" dangerouslySetInnerHTML={{ __html: qrCode }} 
+                                          style={{height:"350px",width:"350px"}} />
+                                  </div>
+                            </div>
+                          )} 
+                          <br/>
+                        
+                          <form onSubmit={checkSlip}>
+                              <label className='form-label-p'>Please upload you slip for check</label>
+                                <input type='file' className='form-control'  onChange={handleFileChange} />
+                                <br/>
+                                  <button className='btn btn-primary' type='submit'>Submit</button>
+                          </form >
+                       
+                  </div>
+                </div>
               </div>
-          )}
-      </div>
-  );
-};
-
-export default UserPort;
+              <Navbar/>
+            </>
+            
+    );
+  };
+export default userPayment
