@@ -10,6 +10,7 @@
     "joi-password-complexity": "^5.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.4.0",
+    "multer": "^1.4.5-lts.1",
     "qrcode": "^1.5.3",
     "qrcode.react": "^3.1.0",
     "react-redux": "^9.1.0",

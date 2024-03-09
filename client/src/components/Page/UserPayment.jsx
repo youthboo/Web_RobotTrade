@@ -1,125 +1,110 @@
-import React, { useState } from 'react';
-import Navbar from "../Navbar";
-import './UserPayment.css'
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './UserPayment.css';
+import Navbar from "../Navbar"; // Import Navbar definition
 
-function userPayment() {
+const UserPayment = () => {
     const [amount, setAmount] = useState(0);
     const [qrCode, setQrCode] = useState('');
-    const [file, setFile] = useState();
-    // const secret = process.env.REACT_APP_KEY;
+    const [file, setFile] = useState(null); 
+    const [userLogin, setUserLogin] = useState(''); 
+    const location = useLocation(); 
+    const { commissionPayment, userLogin: user } = location.state || {}; //
+    useEffect(() => {
+        if (commissionPayment) {
+            setAmount(commissionPayment);
+        }
+        if (user) {
+            setUserLogin(user);
+        }
+    }, [commissionPayment, user]);
 
-    
-    // const [amountCheck, setAmountCheck] = useState(0);
-    // console.log(file);
-  
-            const generateQrCode = async (event) => {
-              try {
-                event.preventDefault(); // Prevent page refresh
-                const response = await fetch('http://localhost:5555/api/payment', {
-                  method: 'POST',
-                  headers: {
+    const generateQrCode = async (event) => {
+        try {
+            event.preventDefault();
+            const response = await fetch('http://localhost:5555/api/payment', {
+                method: 'POST',
+                headers: {
                     'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ amount }),
-                });
-  
-                if (!response.ok) {
-                  throw new Error('Failed to generate QR code');
-                }
-  
-                const svg = await response.text();
-                setQrCode(svg);
-              } catch (error) {
-                console.error('Error:', error);
-              }
-            };
-  
-            const checkSlip = async (event) => {
-              try {
-                event.preventDefault(); // Prevent page refresh
-                  const formData = new FormData() ;
-                  formData.append('file', file);
-                const res = await fetch('https://developer.easyslip.com/api/v1/verify', {
-                  method: 'POST',
-                  headers: {
-                    'Authorization': `Bearer ${process.env.REACT_APP_KEY}`
-                  },
-                  body: formData,
-                });
-                if (!res.ok) {
-                  throw new Error('Failed to verify payment');
-                }
-                const responseData = await res.json();
-                const receivedAmount = JSON.stringify(responseData.data.amount.amount) ;
-                // console.log(receivedAmount);
-                // setAmountCheck(receivedAmount);
-                if (receivedAmount === amount) {
-                  console.log('Success');
-                  // alert('Your payment is successful '+ amountCheck);
-                  Swal.fire({
-                    icon: 'success',
-                    title: 'Your payment is successful',
-                    showConfirmButton: false,
-                    timer: 3000,
-                  });
-                } 
-                else {
-                  throw new Error('Something failed');
-                }
-  
-              } catch (error) {
-                console.error('Error', error);
-              }
-            };   
-            
-            const handleFileChange = (event) => {
-              const selectedFile = event.target.files[0];
-              setFile(selectedFile);
-            };
-            
-   
-          return (
-            <>
-              <div className='container'>
-                <div className='card '>
-                  <div className='card-body'>
-                    <label className='form-label'> Amount:</label>
+                },
+                body: JSON.stringify({ amount }),
+            });
 
-                      <input
-                      className='form-control'
-                        type="number"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                      />
+            if (!response.ok) {
+                throw new Error('Failed to generate QR code');
+            }
 
-                      <br/>
-                    
-                    <button className='btn btn-success m-1' onClick={generateQrCode}>Generate QR Code</button>
-                          <br/>
-                          {qrCode && (
-                            <div className='card' >
-                                  <div className='card-body'>
-                                    <h2 className='card-title'>QR Code:</h2>
-                                      <div classname="qrcode" dangerouslySetInnerHTML={{ __html: qrCode }} 
-                                          style={{height:"350px",width:"350px"}} />
-                                  </div>
-                            </div>
-                          )} 
-                          <br/>
-                        
-                          <form onSubmit={checkSlip}>
-                              <label className='form-label-p'>Please upload you slip for check</label>
-                                <input type='file' className='form-control'  onChange={handleFileChange} />
-                                <br/>
-                                  <button className='btn btn-primary' type='submit'>Submit</button>
-                          </form >
-                       
-                  </div>
-                </div>
-              </div>
-              <Navbar/>
-            </>
-            
-    );
+            const svg = await response.text();
+            setQrCode(svg);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const checkSlip = async (event) => {
+      try {
+          event.preventDefault();
+          const formData = new FormData();
+          formData.append('file', file);
+          
+          const res = await fetch('http://localhost:5555/api/upload-image', {
+              method: 'POST',
+              body: formData,
+          });
+          if (!res.ok) {
+              throw new Error('Failed to upload image');
+          }
+          // ดำเนินการต่อตามที่คุณต้องการ
+      } catch (error) {
+          console.error('Error uploading image:', error);
+      }
   };
-export default userPayment
+
+    const handleFileChange = (event) => {
+        const selectedFile = event.target.files[0];
+        setFile(selectedFile);
+    };
+    
+    return (
+        <>
+            <div className='container'>
+                <div className='card '>
+                    <div className='card-body'>
+                        <label className='form-label'> Amount:</label>
+                        <p>Commission Payment: ${amount}</p>
+                        <input
+                            className='form-control'
+                            type="number"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                        />
+                        <br />
+                        <button className='btn btn-success m-1' onClick={generateQrCode}>Generate QR Code</button>
+                        <br />
+                        {qrCode && (
+                            <div className='card' >
+                                <div className='card-body'>
+                                    <h2 className='card-title'>QR Code:</h2>
+                                    <div className="qrcode" dangerouslySetInnerHTML={{ __html: qrCode }}
+                                        style={{ height: "300px", width: "300px" }} />
+                                </div>
+                            </div>
+                        )}
+                        <br />
+
+                        <form onSubmit={checkSlip}>
+                            <label className='form-label-p'>Please upload you slip for check</label>
+                            <input type='file' className='form-control' onChange={handleFileChange} />
+                            <br />
+                            <button className='btn btn-primary' type='submit'>Submit</button>
+                        </form >
+
+                    </div>
+                </div>
+            </div>
+            <Navbar />
+        </>
+
+    );
+};
+export default UserPayment;

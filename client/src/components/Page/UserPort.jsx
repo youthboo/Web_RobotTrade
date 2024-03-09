@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './UserPort.css';
 
@@ -7,7 +8,6 @@ const UserPort = () => {
     const [loading, setLoading] = useState(false);
     const [userLogin, setUserLogin] = useState('');
     const [showData, setShowData] = useState(false); 
-    const [commissionPayment, setCommissionPayment] = useState(0); // เพิ่ม state สำหรับเก็บ commissionPayment
 
     useEffect(() => {
         if (showData) {
@@ -38,20 +38,17 @@ const UserPort = () => {
     const filteredData = mt4Data.filter(data => data.userLogin === userLogin);
     
     const totalProfit = filteredData.reduce((total, data) => total + data.profit, 0);
+    const commissionPayment = (totalProfit * 0.1).toFixed(2);
 
-    const handleSaveCommissionPayment = () => {
-        sendCommissionPayment(commissionPayment);
-    };
-
-    const sendCommissionPayment = async (commissionPayment) => {
+    const sendCommissionPayment = async () => {
         try {
-            const response = await axios.post('http://localhost:5555/api/commission', { userLogin, commissionPayment }); // ส่ง userLogin และ commissionPayment ไปด้วย
+            const response = await axios.post('http://localhost:5555/api/commission', { userLogin, commissionPayment });
             console.log('Commission payment sent successfully');
         } catch (error) {
             console.error('Error sending commission payment:', error);
         }
     };
-
+    
     return (
         <div>
             <h1 className='topic'>My Portfolio</h1>
@@ -64,13 +61,17 @@ const UserPort = () => {
                     value={userLogin} 
                     onChange={handleLoginChange} 
                 />
-                <button className='btn-showdata' onClick={handleButtonClick}>Show Data</button>
+                <button className='btn-showdata' onClick={handleButtonClick}>Click!</button>
             </div>
             {showData && !loading && (
                 <div>
-                    <p>Total Profit: {totalProfit}</p>
-                    <p>Commission Payment: {commissionPayment}</p>
-                    <button onClick={handleSaveCommissionPayment}>Save Commission Payment</button> {/* เพิ่มปุ่มเพื่อบันทึก commissionPayment */}
+                    <p>Total Profit: ${totalProfit.toFixed(2)}</p> 
+                    <p>Commission Payment: ${commissionPayment}</p> 
+                    <Link to={{
+                        pathname: '/payment/userPayment',
+                        state: { commissionPayment }
+                    }} onClick={sendCommissionPayment}>Payment</Link>
+
                     <table>
                         <thead>
                             <tr>
