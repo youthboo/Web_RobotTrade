@@ -62,3 +62,38 @@
     margin: 9rem 6rem 4rem 6rem; /* เพิ่มค่า margin-top และ margin-bottom เพื่อเลื่อนไปที่ต้องการ */
     color: #2a2a2a;
 }
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999; /* เพิ่ม z-index เพื่อให้ pop-up ขึ้นมาอยู่ใน layer หน้าสุด */
+
+  }
+  
+  .popup img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .popup button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .popup button:hover {
+    background-color: #0056b3;
+  }

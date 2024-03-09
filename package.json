@@ -9,6 +9,7 @@
     "joi": "^17.12.2",
     "joi-password-complexity": "^5.2.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.4.0",
     "qrcode": "^1.5.3",
     "qrcode.react": "^3.1.0",
     "react-redux": "^9.1.0",

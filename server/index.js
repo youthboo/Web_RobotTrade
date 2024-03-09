@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const userRoutes = require('./routes/users')
 const authRoutes = require('./routes/auth')
 const genQrRoutes = require('./routes/payment')
+const mt4DataRoutes = require('./routes/mt4data');
 
 
 mongoose.connect(process.env.MONGO_URI)
@@ -22,6 +23,7 @@ app.use(cors())
 app.use('/api/users', userRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/Payment', genQrRoutes);
+app.use('/api', mt4DataRoutes); // เพิ่มเส้นทางสำหรับข้อมูล MT4 
 
 app.get("/",(req,res)=>{
     res.download("botmodel.mq4")
