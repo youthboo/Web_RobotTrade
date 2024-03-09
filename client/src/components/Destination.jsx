@@ -14,8 +14,8 @@ const Destination = () => {
             <DestinationData 
             className='first-des'
 
-            heading = 'GOLD'
-            text = "One of the most iconic views in Luzon, Mt. Taal boasts a volcano inside a lake inside an island. If you fancy a closer look, the hikeup to the crater is a mere 45 minutes, and is easy enough for beginners. Guides will assit you most of the way, and you'll see the peculiar environment found on an active volcano, including volcanic rocks and stream vents. The hike can be dusty and hot, so plan for an early morning trip, and then unwind with some bulalo before heading back home!"
+            heading = 'GOLD : Exploring the Fascinating World of Gold Trading'
+            text = "Gold trading remains an intriguing prospect for investors worldwide due to its historical significance, diversification benefits, liquidity, market volatility, innovative trading instruments, and long-term value preservation. Whether you're a seasoned trader or a novice investor, exploring the world of gold trading can be both rewarding and enlightening."
             img1={Pict1}
             img2={Pict1}
             />
@@ -23,8 +23,8 @@ const Destination = () => {
             <DestinationData 
             className='first-des-reverse'
 
-            heading = 'EURUSD'
-            text = "If you're looking for a hike that's a little more challenging but still good for a beginner mountaineer, check out Mt. Daguldul in San Juan, Batangas. You'll start your hike from the beach and pass through tropical forest, different rock formations, and small streams. There's a small store halfway up the trail where you can take a break and drink buko juice, and though the summit itself may not have the best view, the breeze is fantastic. Once you've made it back down, head straight to the beach for a refreshing, well-deserved swim."
+            heading = 'EURUSD : Unlocking the Potential of EURUSD Trading'
+            text = "EURUSD trading offers a plethora of opportunities for investors seeking exposure to the dynamic world of forex markets. With its high liquidity, market volatility, global economic impact, technical analysis opportunities, diversification potential, and 24-hour accessibility, EURUSD remains a favored choice among traders of all levels of expertise. Whether you're a seasoned professional or a novice investor, exploring the potential of EURUSD trading can lead to exciting possibilities in the realm of forex investing."
             img1={Pict1}
             img2={Pict1}
             />

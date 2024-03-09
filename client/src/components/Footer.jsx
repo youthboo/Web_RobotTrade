@@ -5,7 +5,7 @@ const Footer = () => {
         <div className='footer'>
             <div className='top'>
                 <div>
-                    <h1>Trippy</h1>
+                    <h1>Tripple P Co.ed</h1>
                     <p>Choose ypur favorite destination.</p>
                 </div>
                 <div>
