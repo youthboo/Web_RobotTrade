@@ -21,11 +21,25 @@ router.post('/commission', async (req, res) => {
     }
 });
 
-// ดึงข้อมูล commission
+// ดึงข้อมูล commission โดย userLogin
 router.get('/commission', async (req, res) => {
     try {
-        const commissions = await CommissionModel.find();
-        res.status(200).json(commissions);
+        const { userPort } = req.query;
+        // ถ้ามี userPort ถูกส่งมาจาก client
+        if (userPort) {
+            const commission = await CommissionModel.findOne({ userLogin: userPort });
+            // ถ้าพบ commission ที่ตรงกับ userPort ที่ส่งมา ให้ส่งข้อมูล commission นั้นกลับไป
+            if (commission) {
+                return res.status(200).json(commission);
+            } else {
+                // ถ้าไม่พบ commission ให้ส่งข้อความว่าไม่พบข้อมูลกลับไป
+                return res.status(404).json({ error: 'Commission not found for the specified userPort' });
+            }
+        } else {
+            // ถ้าไม่มี userPort ถูกส่งมา ให้ดึงข้อมูล commission ทั้งหมด
+            const commissions = await CommissionModel.find();
+            return res.status(200).json(commissions);
+        }
     } catch (error) {
         console.error('Error fetching commissions:', error);
         res.status(500).send('Internal Server Error');
@@ -33,4 +47,3 @@ router.get('/commission', async (req, res) => {
 });
 
 module.exports = router;
-

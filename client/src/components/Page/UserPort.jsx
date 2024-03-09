@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './UserPort.css';
+import { Link } from 'react-router-dom';
 
 const UserPort = () => {
     const [mt4Data, setMt4Data] = useState([]);
@@ -38,12 +38,13 @@ const UserPort = () => {
     const filteredData = mt4Data.filter(data => data.userLogin === userLogin);
     
     const totalProfit = filteredData.reduce((total, data) => total + data.profit, 0);
-    const commissionPayment = (totalProfit * 0.1).toFixed(2);
+    const commissionPayment = (totalProfit * 0.1).toFixed(2); // จัดรูปแบบเลขทศนิยม 2 ตำแหน่ง
 
     const sendCommissionPayment = async () => {
         try {
             const response = await axios.post('http://localhost:5555/api/commission', { userLogin, commissionPayment });
             console.log('Commission payment sent successfully');
+            // ใส่การจัดการหลังจากส่ง commission payment ได้รับการยืนยัน
         } catch (error) {
             console.error('Error sending commission payment:', error);
         }
