@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserPort.css';
+import Swal from 'sweetalert2';
 
 const UserPort = () => {
     const [mt4Data, setMt4Data] = useState([]);
     const [loading, setLoading] = useState(false);
     const [userLogin, setUserLogin] = useState('');
     const [showData, setShowData] = useState(false);
-    const [isEndOfMonth, setIsEndOfMonth] = useState(false); // เพิ่ม state เก็บข้อมูลว่าเราอยู่ในวันสิ้นเดือนหรือไม่
+    const [isEndOfMonth, setIsEndOfMonth] = useState(false); 
+    const [isAfter15th, setIsAfter15th] = useState(false); 
+    
     useEffect(() => {
         if (showData) {
             fetchData(); 
@@ -16,8 +19,10 @@ const UserPort = () => {
         /*const date = new Date();
         const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
         setIsEndOfMonth(date.getDate() === lastDayOfMonth);*/
+        // ตรวจสอบว่าเราอยู่ในวันสิ้นเดือนหรือไม่
         const date = new Date();
         setIsEndOfMonth(date.getDate() === 11);
+        setIsAfter15th(date.getDate() > 15); 
     }, [showData]);
 
     const handleLoginChange = (event) => {
@@ -48,11 +53,29 @@ const UserPort = () => {
 
     const sendCommissionPayment = async () => {
         try {
+            if (commissionPayment < 0) { // เช็คว่า commission เป็นลบหรือไม่
+                // แสดง popup ว่าไม่ต้องจ่าย commission
+                Swal.fire({
+                    icon: 'info',
+                    title: 'No Commission in Month',
+                    text: 'ไม่มีค่า commission ที่ต้องจ่าย',
+                    confirmButtonText: 'ตกลง'
+                });
+                return; // ออกจากฟังก์ชันถ้าไม่ต้องจ่ายเงิน
+            }
+    
             const response = await axios.put('http://localhost:5555/api/commission', { userLogin, commissionPayment });
             console.log('Commission payment sent successfully');
-            window.location = '/payment/userPayment'
+            window.location = '/payment/userPayment';
         } catch (error) {
             console.error('Error sending commission payment:', error);
+            // แสดง popup แจ้งเตือนเมื่อเกิดข้อผิดพลาด
+            Swal.fire({
+                icon: 'error',
+                title: 'เกิดข้อผิดพลาด',
+                text: 'เกิดข้อผิดพลาดในการส่งค่า commission',
+                confirmButtonText: 'ตกลง'
+            });
         }
     };
     
@@ -74,7 +97,7 @@ const UserPort = () => {
                 <div>
                     <p>Total Profit : ${totalProfit.toFixed(2)}</p> 
                     <p>Commission Payment : ${commissionPayment}</p> 
-                    {isEndOfMonth && ( // แสดงปุ่ม Payment และข้อความเฉพาะในวันสิ้นเดือน
+                    {isEndOfMonth && !isAfter15th &&( // แสดงปุ่ม Payment และข้อความเฉพาะในวันสิ้นเดือน
                         <div>
                             <h2>Paid Commission : ${commissionPayment}</h2>
                             <button className='btn-pay' onClick={sendCommissionPayment}>Payment</button>

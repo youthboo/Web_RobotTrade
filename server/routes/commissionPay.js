@@ -11,13 +11,12 @@ router.post('/commission', async (req, res) => {
         // ดึงเดือนจาก datetime และแปลงเป็นรูปแบบตัวเลข
         const month = new Date(datetime).getMonth() + 1;
 
-        // ค้นหาข้อมูล commission ที่มี userLogin เหมือนกัน
-        let commission = await CommissionModel.findOne({ userLogin });
+        // ค้นหาข้อมูล commission ที่มี userLogin เหมือนกัน และเดือนเท่ากัน
+        let commission = await CommissionModel.findOne({ userLogin, month });
 
         // ถ้ามี commission ในฐานข้อมูลแล้ว ให้อัพเดตข้อมูล
         if (commission) {
             commission.payment = commissionPayment;
-            commission.month = month;
             await commission.save();
         } else {
             // ถ้ายังไม่มี commission ในฐานข้อมูล ให้สร้างข้อมูลใหม่

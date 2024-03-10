@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const commissionSchema = new mongoose.Schema({
-    userLogin: String,
-    payment: Number,
-    month: String // เพิ่มฟิลด์เก็บข้อมูลเดือน
+    userLogin: { type: String, required: true },
+    payment: { type: Number, required: true },
+    date: { type: Date, default: Date.now }
 });
 
 const CommissionModel = mongoose.model('Commission', commissionSchema);
