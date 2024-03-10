@@ -75,6 +75,7 @@
 .sidebar li:hover {
   background-color: #FFFF66;
   cursor: pointer;
+  border-radius: 5%;
 }
 
 .icon {

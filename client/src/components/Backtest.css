@@ -1,0 +1,22 @@
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px; /* ปรับความห่างของ button-container กับ TripData */
+}
+
+.goldButton,
+.eurusdButton,
+.usdjpyButton,
+.goldview,
+.eurusdview,
+.usdjpyview {
+  margin-top: 5px; /* ปรับความห่างระหว่างปุ่ม */
+}
+
+.goldview,
+.eurusdview,
+.usdjpyview {
+  order: 2; /* จัดลำดับให้ปุ่ม "view" อยู่ด้านล่าง */
+}

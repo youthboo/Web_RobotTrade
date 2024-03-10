@@ -35,6 +35,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/count', async (req, res) => {
+  try {
+      const count = await User.countDocuments({ isAdmin: false });
+      res.status(200).json({ count });
+  } catch (error) {
+      console.error('Error counting users:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // UPDATE USER
 router.put("/:id", async (req, res) => {
   try {

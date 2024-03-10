@@ -1,23 +1,24 @@
+// Model.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function Model() {
-    const [data, setData] = useState([]);
+    const [images, setImages] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchImages = async () => {
             try {
-                const response = await axios.get('http://localhost:5555/api/admincheck');
-                setData(response.data);
+                const response = await axios.get('http://localhost:5555/api/images');
+                setImages(response.data);
                 setIsLoading(false);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                console.error('Error fetching images:', error);
                 setIsLoading(false);
             }
         };
 
-        fetchData();
+        fetchImages();
     }, []);
 
     if (isLoading) {
@@ -26,15 +27,10 @@ function Model() {
 
     return (
         <div>
-            <h2>Edit Model</h2>
+            <h2>Images</h2>
             <div>
-                {data.map(item => (
-                    <div key={item.userLogin}>
-                        <h3>User Login: {item.userLogin}</h3>
-                        <p>Commission Payment: ${item.commissionPayment}</p>
-                        <p>Slip Image: {item.slipImage}</p>
-                        <p>Upload Date Time: {item.uploadDateTime}</p>
-                    </div>
+                {images.map((image, index) => (
+                    <img key={index} src={`http://localhost:5555/uploads/${image.slipImage}`} alt={`Image ${index}`} />
                 ))}
             </div>
         </div>

@@ -23,8 +23,7 @@ const Login = () => {
                 email: e.target.email.value,
                 password: e.target.password.value
             })
-            localStorage.setItem('token', JSON.stringify(res.data.token));
-            localStorage.setItem('isAdmin', JSON.stringify(res.data.isAdmin));
+            localStorage.setItem('token', JSON.stringify(res.data));
             console.log(res.data);
             if (res.data.isAdmin) {
                 // Redirect admin to admin dashboard

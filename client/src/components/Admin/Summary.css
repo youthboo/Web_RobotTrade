@@ -1,0 +1,43 @@
+.summary-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+.chart-container {
+    margin-top: 20px; /* ปรับระยะห่างของ chart-container จากส่วนอื่นๆ ตามต้องการ */
+}
+  
+.summary-header {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.summary-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.summary-item {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.summary-item p {
+    margin: 0;
+    text-align: center;
+    font-size: 18px;
+}
+
+.loading-text {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}

@@ -1,0 +1,54 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px; /* ปรับความห่างของ button-container กับ TripData */
+  }
+  
+  .goldButton,
+  .eurusdButton,
+  .usdjpyButton,
+  .goldview,
+  .eurusdview,
+  .usdjpyview {
+    margin-top: 5px; /* ปรับความห่างระหว่างปุ่ม */
+  }
+  
+  .goldview,
+  .eurusdview,
+  .usdjpyview {
+    order: 2; /* จัดลำดับให้ปุ่ม "view" อยู่ด้านล่าง */
+  }
+  
+  form {
+    margin-top: 20px;
+  }
+  
+  input[type="number"] {
+    width: 80px; /* ปรับความกว้างของ input */
+    padding: 8px; /* ปรับขนาดของ padding */
+    font-size: 14px; /* ปรับขนาดของตัวหนังสือ */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #45a049;
+  }
