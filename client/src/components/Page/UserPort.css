@@ -45,6 +45,24 @@ label {
     text-decoration: none; /* ลบเส้นใต้ของปุ่ม */
 }
 
+.btn-pay{
+    width: 12%;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    background-color: #20dc58; /* กำหนดสีเป็นสีฟ้า */
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px; /* เพิ่มความห่างด้านบนของปุ่ม */
+    text-decoration: none; /* ลบเส้นใต้ของปุ่ม */
+}
+
+.btn-pay:hover {
+    background-color: #0caf27;
+    text-decoration: none; /* ลบเส้นใต้ของปุ่ม */
+}
+
 table {
     width: 60%;
     border-collapse: collapse;

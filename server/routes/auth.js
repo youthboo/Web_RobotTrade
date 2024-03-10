@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { User } = require('../models/user');
 const Joi = require('joi');
-const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken'); // เพิ่มการนำเข้าโมดูล jsonwebtoken
+const bcrypt = require('bcrypt'); // เพิ่มการนำเข้าโมดูล bcrypt
 
 router.post('/', async (req, res) => {
     try {
@@ -42,6 +43,3 @@ const validate = (data) => {
 };
 
 module.exports = router;
-
-
-  

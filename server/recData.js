@@ -23,6 +23,9 @@ async function startListening() {
 
         const data = JSON.parse(msg.toString());
 
+        // เพิ่มข้อมูลวันที่และเวลาในข้อมูล
+        data.datetime = new Date(); // กำหนดวันที่และเวลาปัจจุบันให้กับข้อมูล
+
         // เก็บข้อมูลใน MongoDB
         try {
             const newData = new MT4DataModel(data);
@@ -37,4 +40,4 @@ async function startListening() {
     }
 }
 
-startListening().catch(console.error); 
+startListening().catch(console.error);

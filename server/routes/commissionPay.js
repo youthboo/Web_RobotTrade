@@ -1,18 +1,29 @@
 const router = require('express').Router();
 const CommissionModel = require('../models/commission');
 
-// รับข้อมูล commissionPayment
 router.post('/commission', async (req, res) => {
     try {
-        const { userLogin, commissionPayment } = req.body;
-        // ตรวจสอบข้อมูลที่รับเข้ามา
-        if (!userLogin || !commissionPayment || isNaN(commissionPayment)) {
+        const { userLogin, commissionPayment, datetime } = req.body;
+        if (!userLogin || !commissionPayment || isNaN(commissionPayment) || !datetime) {
             return res.status(400).json({ error: 'Invalid input data' });
         }
 
-        // เก็บ commissionPayment และ userLogin หรือ port ลงในฐานข้อมูล
-        const commission = new CommissionModel({ userLogin: userLogin, payment: commissionPayment });
-        await commission.save();
+        // ดึงเดือนจาก datetime และแปลงเป็นรูปแบบตัวเลข
+        const month = new Date(datetime).getMonth() + 1;
+
+        // ค้นหาข้อมูล commission ที่มี userLogin เหมือนกัน
+        let commission = await CommissionModel.findOne({ userLogin });
+
+        // ถ้ามี commission ในฐานข้อมูลแล้ว ให้อัพเดตข้อมูล
+        if (commission) {
+            commission.payment = commissionPayment;
+            commission.month = month;
+            await commission.save();
+        } else {
+            // ถ้ายังไม่มี commission ในฐานข้อมูล ให้สร้างข้อมูลใหม่
+            commission = new CommissionModel({ userLogin, payment: commissionPayment, month });
+            await commission.save();
+        }
 
         res.status(201).send('Commission payment saved successfully');
     } catch (error) {
@@ -21,18 +32,15 @@ router.post('/commission', async (req, res) => {
     }
 });
 
-// ดึงข้อมูล commission โดย userLogin
+
 router.get('/commission', async (req, res) => {
     try {
         const { userPort } = req.query;
-        // ถ้ามี userPort ถูกส่งมาจาก client
         if (userPort) {
             const commission = await CommissionModel.findOne({ userLogin: userPort });
-            // ถ้าพบ commission ที่ตรงกับ userPort ที่ส่งมา ให้ส่งข้อมูล commission นั้นกลับไป
             if (commission) {
                 return res.status(200).json(commission);
             } else {
-                // ถ้าไม่พบ commission ให้ส่งข้อความว่าไม่พบข้อมูลกลับไป
                 return res.status(404).json({ error: 'Commission not found for the specified userPort' });
             }
         } else {
@@ -42,6 +50,28 @@ router.get('/commission', async (req, res) => {
         }
     } catch (error) {
         console.error('Error fetching commissions:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+router.put('/commission', async (req, res) => {
+    try {
+        const { userLogin, commissionPayment } = req.body;
+        if (!userLogin || !commissionPayment || isNaN(commissionPayment)) {
+            return res.status(400).json({ error: 'Invalid input data' });
+        }
+        let commission = await CommissionModel.findOne({ userLogin });
+        if (commission) {
+            commission.payment = commissionPayment;
+            await commission.save();
+            return res.status(200).json({ message: 'Commission payment updated successfully' });
+        } else {
+            commission = new CommissionModel({ userLogin, payment: commissionPayment });
+            await commission.save();
+            return res.status(201).json({ message: 'Commission payment saved successfully' });
+        }
+    } catch (error) {
+        console.error('Error updating/saving commission payment:', error);
         res.status(500).send('Internal Server Error');
     }
 });
