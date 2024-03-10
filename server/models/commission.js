@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
 const commissionSchema = new mongoose.Schema({
-    userLogin: String, // เพิ่มฟิลด์ userLogin
+    userLogin: String,
     payment: Number,
-   
 });
 
 const CommissionModel = mongoose.model('Commission', commissionSchema);

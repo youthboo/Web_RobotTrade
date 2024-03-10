@@ -45,12 +45,7 @@ const UserPayment = () => {
                         } else {
                             setAmount(0);
                             setQrCode(''); // Clear QR code if commission not found
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'Commission not found',
-                                text: 'No commission data found for the specified port number.',
-                                confirmButtonText: 'OK'
-                            });
+                            
                         }
                     } else {
                         setAmount(0);
@@ -59,12 +54,7 @@ const UserPayment = () => {
                 })
                 .catch(error => {
                     console.error('Error fetching commission data:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        confirmButtonText: 'OK'
-                    });
+                    
                 });
         }
     }, [portNumber]);
@@ -79,18 +69,36 @@ const UserPayment = () => {
     };
 
     const checkSlip = async () => {
+        // ตรวจสอบว่ามีไฟล์ที่เลือกหรือไม่
+        if (!file) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please select a file before submitting!',
+                confirmButtonText: 'OK'
+            });
+            return; // ออกจากฟังก์ชันโดยไม่ทำอะไรเพิ่มเติม
+        }
+    
         try {
             const formData = new FormData();
-            formData.append('file', file);
+            formData.append('file', file); // แนบไฟล์
+            formData.append('portNumber', portNumber); // แนบ portNumber
+    
+            // ส่งข้อมูลไปยังเซิร์ฟเวอร์
             const res = await axios.post('http://localhost:5555/api/upload-image', formData);
-            Swal.fire({
+    
+            // แสดงข้อความแจ้งเตือนเมื่ออัปโหลดสำเร็จ
+            await Swal.fire({
                 icon: 'success',
                 title: 'Payment completed successfully',
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: true,
+                timer: 4000
             });
         } catch (error) {
             console.error('Error uploading image:', error);
+    
+            // แสดงข้อความแจ้งเตือนเมื่อเกิดข้อผิดพลาด
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -99,7 +107,8 @@ const UserPayment = () => {
             });
         }
     };
-
+    
+      
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
         setFile(selectedFile);
@@ -122,7 +131,7 @@ const UserPayment = () => {
                             type="text"
                             value={portNumber}
                             onChange={(e) => setPortNumber(e.target.value)}
-                            onKeyPress={handleKeyPress}
+                            onClick={handleKeyPress}
                         />
                         <p>Commission Payment: ${amount}</p>
                         <br />
@@ -136,7 +145,7 @@ const UserPayment = () => {
                             </div>
                         )}
                         <br />
-                        <form onSubmit={checkSlip}>
+                        <form onSubmit={(event) => {checkSlip(); event.preventDefault();}}>
                             <label className='form-label-p'>Please upload your slip for check</label>
                             <input type='file' className='form-controlna' onChange={handleFileChange} />
                             <button className='btn btn-primary' type='submit'>Submit</button>

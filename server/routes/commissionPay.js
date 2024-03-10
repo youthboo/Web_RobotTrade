@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const CommissionModel = require('../Models/commission');
+const CommissionModel = require('../models/commission');
 
 // รับข้อมูล commissionPayment
 router.post('/commission', async (req, res) => {

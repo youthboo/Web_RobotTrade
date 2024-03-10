@@ -1,9 +1,8 @@
 const router = require('express').Router();
-const multer = require('multer'); // Import multer for file uploads
+const multer = require('multer');
 const path = require('path');
 const SlipModel = require('../models/image');
 
-// Set storage engine
 const storage = multer.diskStorage({
     destination: './uploads/',
     filename: function(req, file, cb) {
@@ -11,12 +10,10 @@ const storage = multer.diskStorage({
     }
 });
 
-// Initialize upload
 const upload = multer({
     storage: storage
 }).single('file');
 
-// Route to handle file upload
 router.post('/upload-image', async (req, res) => {
     try {
         upload(req, res, async function(err) {
@@ -24,16 +21,18 @@ router.post('/upload-image', async (req, res) => {
                 return res.status(400).json({ error: 'Failed to upload image' });
             }
             
-            // ตรวจสอบและบันทึกไฟล์สลิปลงในฐานข้อมูล
+            // รับข้อมูล portNumber และ uploadDateTime จาก FormData
             const { filename } = req.file;
+            const { portNumber, uploadDateTime } = req.body;
 
-            // บันทึกข้อมูลสลิปลงในฐานข้อมูล
+            // บันทึกข้อมูลลงในฐานข้อมูล
             const newSlip = new SlipModel({
-                slipImage: filename
+                slipImage: filename,
+                portNumber, 
+                uploadDateTime,
             });
             await newSlip.save();
 
-            // ส่งข้อความสำเร็จกลับไปยังไคลเอนต์
             return res.status(200).json({ message: 'Slip uploaded successfully' });
         });
     } catch (error) {
@@ -41,5 +40,6 @@ router.post('/upload-image', async (req, res) => {
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
 
 module.exports = router;
