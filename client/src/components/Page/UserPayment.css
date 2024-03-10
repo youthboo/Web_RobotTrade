@@ -7,32 +7,31 @@
 .card {
   background-color: #fff;
   border-radius: 10px;
-  margin-bottom: 20px;
-  margin-top: 40px;/* เพิ่มค่า margin-top เพื่อเว้นระยะห่างด้านบน */
   padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้การ์ดเพื่อให้ดูมินิมอลขึ้น */
+  margin-top: 100px; /* เพิ่มระยะห่างข้างบนของการ์ด */
 }
 
 .qrcode {
   text-align: center;
-  
 }
 
 .form-label {
   font-weight: bold;
 }
 
-.form-label-p{
+.form-label-p {
   margin-top: 20px;
   font-weight: bold;
 }
 
 .form-control {
-  width: 40%; /* กำหนดความกว้างเป็น 20% */
-  padding: 8px;
+  width: 100%; /* ปรับเป็นความกว้างเต็มหน้าจอ */
+  padding: 10px;
   font-size: 16px;
   border-radius: 10px;
   border: 1px solid #0056b3;
-  margin-bottom: 10px; /* เพิ่มความห่างด้านล่างของ input */
+  margin-bottom: 10px;
 }
 
 .btn {
@@ -40,9 +39,8 @@
   border-radius: 5px;
   padding: 10px 20px;
   font-size: 16px;
-  margin-bottom: 50px;
+  margin-bottom: 20px; /* ลดระยะห่างระหว่างปุ่ม */
 }
-
 
 .btn-primary {
   background-color: #007bff;
@@ -75,13 +73,13 @@ input[type="file"] {
 
 .card-title {
   margin-bottom: 20px;
-  margin-top: -50px;
 }
 
 svg {
   max-width: 100%;
   height: auto;
 }
+
 button {
   cursor: pointer;
   background-color: transparent;
@@ -100,4 +98,5 @@ button:hover {
 
 .card-body > *:not(:last-child) {
   margin-bottom: 10px;
+  margin-top: auto;
 }

@@ -4,6 +4,7 @@ import './UserPayment.css';
 import Navbar from "../Navbar";
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import moment from 'moment-timezone';
 
 const UserPayment = () => {
     const [amount, setAmount] = useState(0);
@@ -107,11 +108,15 @@ const UserPayment = () => {
             });
         }
     };
-    
-      
+        
     const handleFileChange = (event) => {
         const selectedFile = event.target.files[0];
         setFile(selectedFile);
+    
+        // แปลงเวลาเป็นไทม์โซนของเรา (เช่น Asia/Bangkok)
+        const uploadDateTime = moment.tz(new Date(), 'Asia/Bangkok').format();
+        console.log('Upload Date Time:', uploadDateTime);
+
     };
 
     const handleKeyPress = (event) => {
@@ -125,7 +130,7 @@ const UserPayment = () => {
             <div className='container'>
                 <div className='card '>
                     <div className='card-body'>
-                        <label className='form-label'>Port Number : </label>
+                        <h2 className='form-label'>Port Number : </h2>
                         <input
                             className='form-control'
                             type="text"
@@ -133,7 +138,7 @@ const UserPayment = () => {
                             onChange={(e) => setPortNumber(e.target.value)}
                             onClick={handleKeyPress}
                         />
-                        <p>Commission Payment: ${amount}</p>
+                        <p>Commission Payment : ${amount}</p>
                         <br />
                         <button className='btn btn-success m-1' onClick={generateQrCode}>QR Code</button>
                         {qrCode && (
@@ -149,6 +154,7 @@ const UserPayment = () => {
                             <label className='form-label-p'>Please upload your slip for check</label>
                             <input type='file' className='form-controlna' onChange={handleFileChange} />
                             <button className='btn btn-primary' type='submit'>Submit</button>
+
                         </form>
 
                     </div>
