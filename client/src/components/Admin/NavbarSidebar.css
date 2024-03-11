@@ -38,7 +38,8 @@
   }
   
   .admin-btn button:hover {
-    background-color: #0056b3;
+    background-color: #62a8f2;
+    text-decoration: none;
   }
   
   .sidebar {
@@ -99,4 +100,8 @@
     height: 30px;
     margin-right: 10px;
   }
+
+  
+
+  
   

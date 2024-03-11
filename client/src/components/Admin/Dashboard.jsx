@@ -16,10 +16,8 @@ function Dash() {
 
   return (
     <div className="dashboard">
-      <NavbarSidebar /> {/* เรียกใช้ NavbarSidebar ที่นำเข้ามา */}
-      {(isAdminClicked || isOpen) && (
-        <div className="welcome-msg">Welcome, Admin</div>
-      )}
+      <NavbarSidebar /> 
+      <h2 className='welad'>Welcome admin!</h2>
     </div>
   );
 }

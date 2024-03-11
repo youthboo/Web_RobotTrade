@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 80px;
+    margin-top: 30px;
 }
 
 .body {
@@ -37,7 +37,7 @@
 }
 
 .summary-item {
-    background-color: #f0f0f0;
+    background-color: rgb(255, 198, 210);
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);

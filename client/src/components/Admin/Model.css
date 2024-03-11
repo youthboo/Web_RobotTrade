@@ -1,0 +1,36 @@
+.image-popup {
+    max-width: 50%; /* กำหนดความกว้างสูงสุดของภาพ */
+    max-height: 50%; /* กำหนดความสูงสูงสุดของภาพ */
+    display: block; /* ทำให้ภาพแสดงเป็นบล็อก */
+    margin: 0 auto; /* จัดตำแหน่งภาพกลางหน้า */
+  }
+
+.viewim {
+    background-color: rgb(46, 175, 46);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+.viewim:hover {
+    text-decoration: none;
+    background-color: lightgreen;
+  }
+  
+.view-image {
+    background-color: rgb(238, 81, 81);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+.view-image:hover {
+    text-decoration: none;
+    background-color: lightcoral;
+  }
+  

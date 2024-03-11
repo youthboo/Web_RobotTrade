@@ -54,7 +54,7 @@ function Model() {
                                 <p>Upload Date: {formatDate(image.uploadDateTime)}</p> 
                             </td>
                             <td>
-                                <button onClick={() => openModal(image)}>View Image</button>
+                                <button className='viewim' onClick={() => openModal(image)}>View Image</button>
                             </td>
                         </tr>
                     ))}
@@ -66,7 +66,7 @@ function Model() {
                     {selectedImage && (
                         <div>
                             <img className="image-popup" src={`http://localhost:5555/${selectedImage.slipImage}`} alt={`Selected Image`} />
-                            <button onClick={closeModal}>Close</button>
+                            <button className='view-image' onClick={closeModal}>Close</button>
                         </div>
                     )}
                 </ReactModal>

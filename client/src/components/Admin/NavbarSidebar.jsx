@@ -6,6 +6,7 @@ import './NavbarSidebar.css';
 import DashboardIcon from '../../assets/dashboard.png';
 import UserIcon from '../../assets/user.png';
 import ModelIcon from '../../assets/model.png';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 function NavbarSidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,14 +56,17 @@ function NavbarSidebar() {
             <li>
               <Link to="/admin/model"> 
                 <img src={ModelIcon} alt="Model Icon" className="icon" />
-                Model
+                Checklist
+              </Link>
+            </li>
+            <li>
+              <Link to="/login">
+                <FontAwesomeIcon icon={faSignOutAlt} className="icon"/>
+                Logout
               </Link>
             </li>
           </ul>
         </div>
-      )}
-      {(isAdminClicked || isOpen) && (
-        <div className="welcome-msg">Welcome, Admin</div>
       )}
     </div>
   );
