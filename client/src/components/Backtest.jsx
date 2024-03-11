@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './TripStyles.css';
 import TripData from './TripData';
 import Goldpic2 from '../assets/backpqy.jpg'
+import BacktestG from '../assets/image.png'
 import symbol2 from '../assets/eurusd.png';
 import symbol3 from '../assets/usdjpy.png';
 import Axios from 'axios';
@@ -66,7 +67,7 @@ function Backtest() {
         </div>
         {isGoldPopupOpen && (
           <div className='popup'>
-            <img src={Goldpic2} alt='GOLD' />
+            <img src={BacktestG} alt='GOLD' />
             <button onClick={closeGoldPopup}>Close</button>
           </div>
         )}

@@ -47,11 +47,6 @@ function App() {
           </>
         )}
 
-        {!isAdmin && (
-          <>
-            <Route path='/admin/*' element={<Navigate to='/' replace />} />
-          </>
-        )}
       </Routes>
     </div>
   );

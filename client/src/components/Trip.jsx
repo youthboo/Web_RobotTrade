@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './TripStyles.css';
 import TripData from './TripData';
 import Goldpic2 from '../assets/backpqy.jpg'
+import BacktestG from '../assets/image.png'
 import symbol2 from '../assets/eurusd.png';
 import symbol3 from '../assets/usdjpy.png';
 import Axios from 'axios';
@@ -28,12 +29,12 @@ function Trip() {
 
   const download = (symbol) => {
     Axios({
-      url: `http://localhost:5555/${symbol}`,
+      url: `http://localhost:5555/`,
       method: 'GET',
       responseType: 'blob',
     }).then((res) => {
       console.log(res);
-      fileDownload(res.data, `Robot_${symbol}.mq4`);
+      fileDownload(res.data, `Robot.mq4`);
     });
   };
 
@@ -99,7 +100,7 @@ function Trip() {
         </div>
         {isGoldPopupOpen && (
           <div className="popup">
-            <img src={Goldpic2} alt="GOLD" />
+            <img src={BacktestG} alt="GOLD" />
             <button onClick={() => closePopup('GOLD')}>Close</button>
           </div>
         )}
