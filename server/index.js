@@ -25,13 +25,21 @@ cron.schedule('0 0 1 * *', async () => {
 
 async function saveCommissionData() {
     try {
-        // ดึงข้อมูล commission จาก API
-        const response = await axios.get('http://localhost:5555/api/commission');
-        const commissions = response.data;
+        const response = await axios.get('http://localhost:5555/api/mt4data');
+        const mt4Data = response.data;
 
-        // นำข้อมูล commission ไปบันทึกลงใน MongoDB
-        for (const commission of commissions) {
-            await saveCommissionToDatabase(commission);
+        // คำนวณค่าคอมมิชันและบันทึกลงในตาราง commission
+        for (const data of mt4Data) {
+            const totalProfit = data.profit; 
+            const commissionAmount = totalProfit * 0.1; 
+
+            const commissionData = {
+                userLogin: data.userLogin,
+                commissionPayment: commissionAmount,
+                datetime: new Date() // ใช้เวลาปัจจุบันเป็นเวลาของคอมมิชัน
+            };
+
+            await saveCommissionToDatabase(commissionData);
         }
 
         console.log('Commission data saved successfully');

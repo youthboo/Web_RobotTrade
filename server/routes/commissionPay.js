@@ -31,7 +31,6 @@ router.post('/commission', async (req, res) => {
     }
 });
 
-
 router.get('/commission', async (req, res) => {
     try {
         const { userPort } = req.query;

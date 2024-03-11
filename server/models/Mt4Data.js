@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// สร้าง Schema สำหรับข้อมูล MT4
 const mt4DataSchema = new mongoose.Schema({
     balance: Number,
     equity: Number,
