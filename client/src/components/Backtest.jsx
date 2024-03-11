@@ -1,7 +1,7 @@
 import React, { useState } from 'react'; // Import useState from React
 import './TripStyles.css';
 import TripData from './TripData';
-import symbol1 from '../assets/gold.png';
+import Goldpic2 from '../assets/image.png'
 import symbol2 from '../assets/eurusd.png';
 import symbol3 from '../assets/usdjpy.png';
 import Axios from 'axios';
@@ -56,7 +56,7 @@ function Backtest() {
       <p>You can choose bot!!!</p>
       <div className='tripcard'>
         <TripData
-          image={symbol1}
+          image={Goldpic2}
           heading='GOLD'
           text='Winrate : 1% Drawdown : 99%'
         />

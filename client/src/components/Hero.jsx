@@ -1,5 +1,4 @@
 import './HeroStyles.css'
-import image from '../assets/12.jpg'
 
 function Hero (props) {
     return(

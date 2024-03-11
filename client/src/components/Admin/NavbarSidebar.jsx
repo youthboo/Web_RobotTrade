@@ -7,6 +7,7 @@ import DashboardIcon from '../../assets/dashboard.png';
 import UserIcon from '../../assets/user.png';
 import ModelIcon from '../../assets/model.png';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 function NavbarSidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +19,22 @@ function NavbarSidebar() {
 
   const handleAdminClick = () => {
     setIsAdminClicked(!isAdminClicked);
+  };
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure you want to logout?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location = '/login';
+        Swal.fire('Logged out!', 'You have been logged out.', 'success');
+      }
+    });
   };
 
   return (
@@ -60,10 +77,10 @@ function NavbarSidebar() {
               </Link>
             </li>
             <li>
-              <Link to="/login">
+              <button onClick={handleLogout}>
                 <FontAwesomeIcon icon={faSignOutAlt} className="icon"/>
                 Logout
-              </Link>
+              </button>
             </li>
           </ul>
         </div>

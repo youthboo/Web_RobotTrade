@@ -1,7 +1,5 @@
 import { Component } from 'react';
 import './DestinationStyles.css'
-import Moutain1 from '../assets/1.jpg'
-import Moutain2 from '../assets/2.jpg'
 
 class DestinationData extends Component{
     render() {

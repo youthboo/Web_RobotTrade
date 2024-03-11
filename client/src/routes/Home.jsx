@@ -2,7 +2,6 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import HeroImage from '../assets/background_home.jpg'
 import Destination from '../components/Destination'
-
 import Footer from '../components/Footer'
 import Backtest from '../components/Backtest'
 
@@ -26,6 +25,5 @@ function Home () {
     )
 
 }
-
 
 export default Home;

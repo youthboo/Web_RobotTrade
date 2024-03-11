@@ -83,7 +83,17 @@
     cursor: pointer;
     border-radius: 5%;
   }
-  
+
+  .sidebar li button{
+    color: black;
+  }
+  .sidebar li button:hover {
+    background-color: #FFFF66;
+    cursor: pointer;
+    border-radius: 5%;
+    text-decoration: none;
+  }
+ 
   .close-button {
     background: none;
     border: none;
