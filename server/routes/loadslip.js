@@ -43,13 +43,12 @@ router.post('/upload-image', async (req, res) => {
 
 router.get('/images', async (req, res) => {
     try {
-        const images = await SlipModel.find({}, 'slipImage');
+        const images = await SlipModel.find({}, 'slipImage portNumber uploadDateTime'); // เลือก slipImage และ portNumber
         res.json(images);
     } catch (error) {
         console.error('Error fetching images:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
-
 
 module.exports = router;

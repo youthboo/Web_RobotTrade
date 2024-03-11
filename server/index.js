@@ -59,6 +59,7 @@ mongoose.connect(process.env.MONGO_URI)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
 app.use(cors())
+app.use(express.static('uploads'))
 
 //routes
 app.use('/api/users', userRoutes)
