@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar'
-import ContactImage from '../assets/night.jpg'
+import BackPay from '../assets/piceur.jpg'
 import Hero from '../components/Hero'
 import Footer from '../components/Footer'
 import ContactForm from '../components/ContactForm'
@@ -10,7 +10,7 @@ function Payment () {
             <Navbar />
             <Hero 
                 cName = 'hero-mid'
-                heroImg = {ContactImage}
+                heroImg = {BackPay}
                 title= 'Payment'
                 buttonText= "Let go Payment"
                 url = '/payment/userPayment' 

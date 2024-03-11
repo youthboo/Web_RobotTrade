@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Backport from '../assets/backport.jpg';
 import Hero from '../components/Hero';

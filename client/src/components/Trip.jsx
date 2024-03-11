@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './TripStyles.css';
 import TripData from './TripData';
-import symbol1 from '../assets/gold.png';
+import Goldpic2 from '../assets/backpqy.jpg'
 import symbol2 from '../assets/eurusd.png';
 import symbol3 from '../assets/usdjpy.png';
 import Axios from 'axios';
@@ -72,9 +72,23 @@ function Trip() {
   return (
     <div className="trip">
       <h1>Robot Trade</h1>
-      <p>คุณสามารถปรับแต่ง Lotsize ได้จากด้านล่าง</p>
+      <p>"Customize Parameters Here!!!"</p>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Lot Size :  <br />
+          <input
+            type="number"
+            value={lotSize}
+            onChange={(e) => handleLotSizeChange(parseFloat(e.target.value))}
+            step="0.01"
+            className="input-field"
+          />
+        </label>
+        
+        <button type="download">Download</button>
+      </form>
       <div className="tripcard">
-        <TripData image={symbol1} heading="GOLD" text="Winrate : 1% Drawdown : 99%" />
+        <TripData image={Goldpic2} heading="GOLD" text="Winrate : 1% Drawdown : 99%" />
         <div className="button-container">
           <button className="goldButton" onClick={() => download('GOLD')}>
             GOLD
@@ -85,7 +99,7 @@ function Trip() {
         </div>
         {isGoldPopupOpen && (
           <div className="popup">
-            <img src={symbol1} alt="GOLD" />
+            <img src={Goldpic2} alt="GOLD" />
             <button onClick={() => closePopup('GOLD')}>Close</button>
           </div>
         )}
@@ -122,19 +136,6 @@ function Trip() {
           </div>
         )}
       </div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Lot Size:
-          <input
-            type="number"
-            value={lotSize}
-            onChange={(e) => handleLotSizeChange(parseFloat(e.target.value))}
-            step="0.01"
-          />
-        </label>
-        
-        <button type="submit">Dowload</button>
-      </form>
     </div>
   );
 }
