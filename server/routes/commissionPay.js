@@ -8,13 +8,9 @@ router.post('/commission', async (req, res) => {
             return res.status(400).json({ error: 'Invalid input data' });
         }
 
-        // ดึงเดือนจาก datetime และแปลงเป็นรูปแบบตัวเลข
         const month = new Date(datetime).getMonth() + 1;
-
-        // ค้นหาข้อมูล commission ที่มี userLogin เหมือนกัน และเดือนเท่ากัน
         let commission = await CommissionModel.findOne({ userLogin, month });
-
-        // ถ้ามี commission ในฐานข้อมูลแล้ว ให้อัพเดตข้อมูล
+        
         if (commission) {
             commission.payment = commissionPayment;
             await commission.save();

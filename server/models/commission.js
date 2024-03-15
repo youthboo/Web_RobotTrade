@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const commissionSchema = new mongoose.Schema({
     userLogin: { type: String, required: true },
     payment: { type: Number, required: true },
-    date: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now },
+    email: { type: String }
 });
 
 const CommissionModel = mongoose.model('Commission', commissionSchema);
