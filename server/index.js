@@ -14,8 +14,9 @@ const checkRoutes = require('./routes/checkout')
 const profileRoutes = require('./routes/profile')
 const cron = require('node-cron');
 const axios = require('axios');
+const { User } = require('./models/user')
 
-cron.schedule('14 23 15 * *', async () => {
+cron.schedule('55 2 16 * *', async () => {
     try {
         console.log('Cron job started at', new Date());
         await saveCommissionData();
@@ -26,7 +27,7 @@ cron.schedule('14 23 15 * *', async () => {
 
 async function saveCommissionData() {
     try {
-        const response = await axios.get('http://localhost:5555/api/mt4data');
+        const response = await axios.get('http://localhost:5555/api/mt4user');
         const mt4Data = response.data;
 
         const commissionMap = new Map(); // เก็บ commission ตาม userLogin
@@ -47,13 +48,22 @@ async function saveCommissionData() {
         for (const [userLogin, totalProfit] of commissionMap) {
             const commissionAmount = totalProfit * 0.1;
 
-            const commissionData = {
-                userLogin: userLogin,
-                commissionPayment: commissionAmount,
-                datetime: new Date()
-            };
+            // ค้นหาผู้ใช้โดยใช้ userLogin จาก User model
+            const user = await User.findOne({ port: userLogin });
 
-            await saveCommissionToDatabase(commissionData);
+            if (user && user.email) {
+                const commissionData = {
+                    userLogin: userLogin,
+                    commissionPayment: commissionAmount,
+                    datetime: new Date(),
+                    email: user.email // เพิ่ม email ของผู้ใช้ในข้อมูล commission
+                };
+
+                // เก็บข้อมูล commission ลงในฐานข้อมูล
+                await saveCommissionToDatabase(commissionData);
+            } else {
+                console.log(`Email not found for userLogin: ${userLogin}`);
+            }
         }
 
         console.log('Commission data saved successfully');
@@ -61,6 +71,7 @@ async function saveCommissionData() {
         console.error('Error saving commission data:', error);
     }
 }
+
 
 async function saveCommissionToDatabase(commission) {
     try {
@@ -70,6 +81,7 @@ async function saveCommissionToDatabase(commission) {
         console.error('Error saving commission to database:', error);
     }
 } 
+
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
@@ -84,7 +96,7 @@ app.use(express.static('uploads'))
 app.use('/api/users', userRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/Payment', genQrRoutes);
-app.use('/api', mt4DataRoutes); // เพิ่มเส้นทางสำหรับข้อมูล MT4 
+app.use('/api', mt4DataRoutes); 
 app.use('/api', commissionRoutes)
 app.use('/api', slipRoutes)
 app.use('/api', admincheckRoutes)
@@ -95,9 +107,5 @@ app.get("/",(req,res)=>{
     res.download("botmodel.mq4")
 })
 
-app.set('view engine', 'ejs');
-
 const port = process.env.PORT || 5555;
-
-
 app.listen(port,() => console.log("Listening on port..."))

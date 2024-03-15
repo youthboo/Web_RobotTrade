@@ -3,8 +3,9 @@ const CommissionModel = require('../models/commission');
 
 router.post('/commission', async (req, res) => {
     try {
-        const { userLogin, commissionPayment, datetime } = req.body;
-        if (!userLogin || !commissionPayment || isNaN(commissionPayment) || !datetime) {
+        const { userLogin, commissionPayment, datetime, email } = req.body;
+        
+        if (!userLogin || !commissionPayment || isNaN(commissionPayment) || !datetime || !email) {
             return res.status(400).json({ error: 'Invalid input data' });
         }
 
@@ -13,10 +14,11 @@ router.post('/commission', async (req, res) => {
         
         if (commission) {
             commission.payment = commissionPayment;
+            commission.email = email; // เพิ่ม email ที่รับมาจาก request
             await commission.save();
         } else {
             // ถ้ายังไม่มี commission ในฐานข้อมูล ให้สร้างข้อมูลใหม่
-            commission = new CommissionModel({ userLogin, payment: commissionPayment, month });
+            commission = new CommissionModel({ userLogin, payment: commissionPayment, month, email });
             await commission.save();
         }
 
@@ -27,40 +29,20 @@ router.post('/commission', async (req, res) => {
     }
 });
 
-router.get('/commission', async (req, res) => {
-    try {
-        const { userPort } = req.query;
-        if (userPort) {
-            const commission = await CommissionModel.findOne({ userLogin: userPort });
-            if (commission) {
-                return res.status(200).json(commission);
-            } else {
-                return res.status(404).json({ error: 'Commission not found for the specified userPort' });
-            }
-        } else {
-            // ถ้าไม่มี userPort ถูกส่งมา ให้ดึงข้อมูล commission ทั้งหมด
-            const commissions = await CommissionModel.find();
-            return res.status(200).json(commissions);
-        }
-    } catch (error) {
-        console.error('Error fetching commissions:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
-
 router.put('/commission', async (req, res) => {
     try {
-        const { userLogin, commissionPayment } = req.body;
-        if (!userLogin || !commissionPayment || isNaN(commissionPayment)) {
+        const { userLogin, commissionPayment, email } = req.body;
+        if (!userLogin || !commissionPayment || isNaN(commissionPayment) || !email) {
             return res.status(400).json({ error: 'Invalid input data' });
         }
         let commission = await CommissionModel.findOne({ userLogin });
         if (commission) {
             commission.payment = commissionPayment;
+            commission.email = email; // เพิ่ม email ที่รับมาจาก request
             await commission.save();
             return res.status(200).json({ message: 'Commission payment updated successfully' });
         } else {
-            commission = new CommissionModel({ userLogin, payment: commissionPayment });
+            commission = new CommissionModel({ userLogin, payment: commissionPayment, email });
             await commission.save();
             return res.status(201).json({ message: 'Commission payment saved successfully' });
         }

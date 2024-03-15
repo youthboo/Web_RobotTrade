@@ -9,15 +9,27 @@ function UserPayment() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
-      // ส่งข้อมูลอีเมลไปยังเซิร์ฟเวอร์เพื่อดึงค่า payment
-      const response = await fetch(`http://localhost:5555/api/get-payment?email=${email}`);
+      if (!email) {
+        throw new Error('Email is required');
+      }
+      
+      // ส่งคำขอ GET เพื่อขอข้อมูลการจ่ายเงินด้วยอีเมล
+      const response = await fetch(`http://localhost:5555/api/get-payment?email=${email}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      
+      // เช็คสถานะของการตอบสนอง
       if (!response.ok) {
         throw new Error('Failed to fetch payment data');
       }
+      
       const { payment } = await response.json();
-
+  
       // สร้าง PaymentIntent โดยใช้ค่า payment ที่ดึงมา
       const paymentIntentResponse = await fetch('http://localhost:5555/api/create-payment-intent', {
         method: 'POST',
@@ -26,13 +38,13 @@ function UserPayment() {
         },
         body: JSON.stringify({ email, payment }),
       });
-
+  
       if (!paymentIntentResponse.ok) {
         throw new Error('Failed to create PaymentIntent');
       }
-
+  
       const { client_secret } = await paymentIntentResponse.json();
-
+  
       // ยืนยันการชำระเงินด้วย PaymentIntent ที่สร้างขึ้น
       const stripe = await stripePromise;
       const { error } = await stripe.confirmPromptPayPayment(client_secret, {
@@ -40,7 +52,7 @@ function UserPayment() {
           billing_details: { email },
         },
       });
-
+  
       if (error) {
         console.error('Payment confirmation error:', error);
       } else {
@@ -49,7 +61,9 @@ function UserPayment() {
     } catch (error) {
       console.error('Error confirming payment:', error);
     }
-  };
+};
+
+  
 
   return (
     <div className="Payment">

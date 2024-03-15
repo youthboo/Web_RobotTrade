@@ -12,11 +12,9 @@ router.post('/create-payment-intent', async (req, res) => {
         }
 
         const paymentInThb = commissionData.payment * 35;
-
-        // Create PaymentIntent with payment amount, currency, and promptpay payment method
         const intent = await stripe.paymentIntents.create({
             payment_method_types: ['promptpay'],
-            amount: Math.round(paymentInThb * 100), // แปลงจำนวนเงินเป็นเซนต์
+            amount: Math.round(paymentInThb * 100), 
             currency: 'thb',
         });
 
@@ -29,16 +27,25 @@ router.post('/create-payment-intent', async (req, res) => {
 
 router.get('/get-payment', async (req, res) => {
     try {
-        const { email } = req.query;
-        const commissionData = await CommissionModel.findOne({ email });
+        const email = req.query.email; // ดึงค่า email จาก query parameters
+
+        // ตรวจสอบว่ามีค่า email ที่ระบุหรือไม่
+        if (!email) {
+            return res.status(400).json({ error: 'Email parameter is required' });
+        }
+
+        // ค้นหา commission ด้วย email
+        const commissionData = await CommissionModel.findOne({ email }); 
         if (!commissionData) {
             return res.status(404).json({ error: 'No payment data found for this email' });
         }
+
         res.json({ payment: commissionData.payment });
     } catch (err) {
         console.error('Error fetching payment data:', err.message);
         res.status(500).json({ error: 'Failed to fetch payment data' });
     }
 });
+
 
 module.exports = router;

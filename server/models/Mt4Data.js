@@ -11,6 +11,7 @@ const mt4DataSchema = new mongoose.Schema({
         profit: Number
     },
     datetime: Date, // เพิ่มฟิลด์วันที่และเวลาใน Schema
+    
 });
 
 // สร้าง Model จาก Schema ของข้อมูล MT4
