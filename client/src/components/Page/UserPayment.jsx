@@ -1,168 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import './UserPayment.css';
+import React, { useState } from 'react';
+import './UserPayment.css'
 import Navbar from "../Navbar";
-import Swal from 'sweetalert2';
-import axios from 'axios';
-import moment from 'moment-timezone';
+import { loadStripe } from '@stripe/stripe-js';
+const stripePromise = loadStripe('pk_test_51Otn4m1ObdAUbr0ZbfkEXGlUulBwVCPevy47Lwnbkh5KtQMlYyAxhuaN69myWapVx56qcp5LozDubVVAE8EXvLFO00EusqAFqZ');
 
-const UserPayment = () => {
-    const [amount, setAmount] = useState(0);
-    const [qrCode, setQrCode] = useState('');
-    const [file, setFile] = useState(null);
-    const [userLogin, setUserLogin] = useState('');
-    const [portNumber, setPortNumber] = useState('');
-    const location = useLocation();
-    const { commissionPayment, userLogin: user } = location.state || {};
+function UserPayment() {
+  const [email, setEmail] = useState('');
 
-    useEffect(() => {
-        if (commissionPayment) {
-            setAmount(commissionPayment);
-        }
-        if (user) {
-            setUserLogin(user);
-        }
-    }, [commissionPayment, user]);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    const fetchCommissionByPort = async (userLogin) => {
-        try {
-            const response = await axios.get(`http://localhost:5555/api/commission?userLogin=${userLogin}`);
-            return response.data;
-        } catch (error) {
-            console.error('Error fetching commission data:', error);
-            return null;
-        }
-    };
+    try {
+      // ส่งข้อมูลอีเมลไปยังเซิร์ฟเวอร์เพื่อดึงค่า payment
+      const response = await fetch(`http://localhost:5555/api/get-payment?email=${email}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch payment data');
+      }
+      const { payment } = await response.json();
 
-    useEffect(() => {
-        if (portNumber) {
-            fetchCommissionByPort(portNumber)
-                .then(commissions => {
-                    if (commissions && commissions.length > 0) {
-                        const filteredCommission = commissions.filter(commission => commission.userLogin === portNumber);
-                        if (filteredCommission.length > 0) {
-                            setAmount(filteredCommission[0].payment);
-                            setQrCode(''); // Clear QR code if commission found
-                        } else {
-                            setAmount(0);
-                            setQrCode(''); // Clear QR code if commission not found
-                            
-                        }
-                    } else {
-                        setAmount(0);
-                        setQrCode(''); // Clear QR code if commission not found
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching commission data:', error);
-                    
-                });
-        }
-    }, [portNumber]);
+      // สร้าง PaymentIntent โดยใช้ค่า payment ที่ดึงมา
+      const paymentIntentResponse = await fetch('http://localhost:5555/api/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, payment }),
+      });
 
-    const generateQrCode = async () => {
-        try {
-            const response = await axios.post('http://localhost:5555/api/payment', { amount, portNumber });
-            setQrCode(response.data);
-        } catch (error) {
-            console.error('Error generating QR code:', error);
-        }
-    };
+      if (!paymentIntentResponse.ok) {
+        throw new Error('Failed to create PaymentIntent');
+      }
 
-    const checkSlip = async () => {
-        // ตรวจสอบว่ามีไฟล์ที่เลือกหรือไม่
-        if (!file) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Please select a file before submitting!',
-                confirmButtonText: 'OK'
-            });
-            return; // ออกจากฟังก์ชันโดยไม่ทำอะไรเพิ่มเติม
-        }
-    
-        try {
-            const formData = new FormData();
-            formData.append('file', file); // แนบไฟล์
-            formData.append('portNumber', portNumber); // แนบ portNumber
-    
-            // ส่งข้อมูลไปยังเซิร์ฟเวอร์
-            const res = await axios.post('http://localhost:5555/api/upload-image', formData);
-    
-            // แสดงข้อความแจ้งเตือนเมื่ออัปโหลดสำเร็จ
-            await Swal.fire({
-                icon: 'success',
-                title: 'Payment completed successfully',
-                showConfirmButton: true,
-                timer: 4000
-            });
-        } catch (error) {
-            console.error('Error uploading image:', error);
-    
-            // แสดงข้อความแจ้งเตือนเมื่อเกิดข้อผิดพลาด
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-                confirmButtonText: 'OK'
-            });
-        }
-    };
-        
-    const handleFileChange = (event) => {
-        const selectedFile = event.target.files[0];
-        setFile(selectedFile);
-    
-        // แปลงเวลาเป็นไทม์โซนของเรา (เช่น Asia/Bangkok)
-        const uploadDateTime = moment.tz(new Date(), 'Asia/Bangkok').format();
-        console.log('Upload Date Time:', uploadDateTime);
+      const { client_secret } = await paymentIntentResponse.json();
 
-    };
+      // ยืนยันการชำระเงินด้วย PaymentIntent ที่สร้างขึ้น
+      const stripe = await stripePromise;
+      const { error } = await stripe.confirmPromptPayPayment(client_secret, {
+        payment_method: {
+          billing_details: { email },
+        },
+      });
 
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            generateQrCode();
-        }
-    };
+      if (error) {
+        console.error('Payment confirmation error:', error);
+      } else {
+        console.log('Payment confirmed successfully!');
+      }
+    } catch (error) {
+      console.error('Error confirming payment:', error);
+    }
+  };
 
-    return (
-        <>
-            <div className='container'>
-                <div className='card '>
-                    <div className='card-body'>
-                        <h2 className='form-label'>Port Number : </h2>
-                        <input
-                            className='form-control'
-                            type="text"
-                            value={portNumber}
-                            onChange={(e) => setPortNumber(e.target.value)}
-                            onClick={handleKeyPress}
-                        />
-                        <p>Commission Payment : ${amount}</p>
-                        <br />
-                        <button className='btn btn-success m-1' onClick={generateQrCode}>QR Code</button>
-                        {qrCode && (
-                            <div className='card' >
-                                <div className='card-body'>
-                                    <div className="qrcode" dangerouslySetInnerHTML={{ __html: qrCode }}
-                                        style={{ height: "400px", width: "400px" }} />
-                                </div>
-                            </div>
-                        )}
-                        <br />
-                        <form onSubmit={(event) => {checkSlip(); event.preventDefault();}}>
-                            <label className='form-label-p'>Please upload your slip for check</label>
-                            <input type='file' className='form-controlna' onChange={handleFileChange} />
-                            <button className='btn btn-primary' type='submit'>Submit</button>
-
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-            <Navbar />
-        </>
-    );
-};
+  return (
+    <div className="Payment">
+      <Navbar/>
+      <form id="payment-form" onSubmit={handleSubmit}>
+        <div className="form-row">
+          <label htmlFor="email">Email</label>
+          <input id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+        <div id="error-message" role="alert"></div>
+        <button id="submit-button" type="submit">Pay</button>
+      </form>
+    </div>
+  );
+}
 
 export default UserPayment;

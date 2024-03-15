@@ -14,6 +14,7 @@ import EditUser from './components/Admin/EditUser';
 import UserPort from './components/Page/UserPort';
 import BotConnect from './components/Page/BotConnect';
 import UserPayment from './components/Page/UserPayment';
+import CheckoutSuccess from './components/Page/CheckoutSuccess';
 
 function App() {
   
@@ -33,6 +34,7 @@ function App() {
         <Route path='/portfolio/userPort' element={<UserPort />}/>
         <Route path='/payment' element={<Payment />}/>
         {!user && <Route path='/payment/userPayment' element={<Navigate to="/signup" />} />}
+        <Route path='/checkout-success' element={<CheckoutSuccess />}/>
         <Route path='/payment/userPayment' element={<UserPayment />}/>
         <Route path='/signup' element={<Signup />}/>
         <Route path='/login' element={<Login />}/>

@@ -10,6 +10,7 @@ const mt4DataRoutes = require('./routes/mt4data');
 const commissionRoutes = require('./routes/commissionPay')
 const slipRoutes = require('./routes/loadslip')
 const admincheckRoutes = require('./routes/admin')
+const checkRoutes = require('./routes/checkout')
 const cron = require('node-cron');
 const axios = require('axios');
 
@@ -77,6 +78,7 @@ app.use('/api', mt4DataRoutes); // เพิ่มเส้นทางสำห
 app.use('/api', commissionRoutes)
 app.use('/api', slipRoutes)
 app.use('/api', admincheckRoutes)
+app.use('/api', checkRoutes)
 
 app.get("/",(req,res)=>{
     res.download("botmodel.mq4")
