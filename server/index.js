@@ -12,6 +12,7 @@ const slipRoutes = require('./routes/loadslip')
 const admincheckRoutes = require('./routes/admin')
 const checkRoutes = require('./routes/checkout')
 const profileRoutes = require('./routes/profile')
+const webhookRoutes = require('./routes/webhook')
 const cron = require('node-cron');
 const axios = require('axios');
 const { User } = require('./models/user')
@@ -102,10 +103,18 @@ app.use('/api', slipRoutes)
 app.use('/api', admincheckRoutes)
 app.use('/api', checkRoutes)
 app.use('/api', profileRoutes)
+app.use('/api', webhookRoutes)
 
-app.get("/",(req,res)=>{
-    res.download("botmodel.mq4")
+app.get("/gold",(req,res)=>{
+    res.download("bot_gold.mq4")
 })
 
+app.get("/eurusd",(req,res)=>{
+    res.download("bot_eurusd.mq4")
+})
+
+app.get("/usdjpy",(req,res)=>{
+    res.download("bot_usdjpy.mq4")
+})
 const port = process.env.PORT || 5555;
 app.listen(port,() => console.log("Listening on port..."))

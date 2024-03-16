@@ -27,14 +27,12 @@ router.post('/create-payment-intent', async (req, res) => {
 
 router.get('/get-payment', async (req, res) => {
     try {
-        const email = req.query.email; // ดึงค่า email จาก query parameters
+        const email = req.query.email; 
 
-        // ตรวจสอบว่ามีค่า email ที่ระบุหรือไม่
         if (!email) {
             return res.status(400).json({ error: 'Email parameter is required' });
         }
 
-        // ค้นหา commission ด้วย email
         const commissionData = await CommissionModel.findOne({ email }); 
         if (!commissionData) {
             return res.status(404).json({ error: 'No payment data found for this email' });
@@ -46,6 +44,5 @@ router.get('/get-payment', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch payment data' });
     }
 });
-
 
 module.exports = router;

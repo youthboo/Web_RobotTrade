@@ -27,16 +27,40 @@ function Trip() {
     fileDownload(blob, 'Robot.set');
   };
 
-  const download = (symbol) => {
+  const download_gold = (symbol) => {
     Axios({
-      url: `http://localhost:5555/`,
+      url: `http://localhost:5555/gold`,
       method: 'GET',
-      responseType: 'blob',
+      responseType: 'blob'
     }).then((res) => {
       console.log(res);
-      fileDownload(res.data, `Robot.mq4`);
+      fileDownload(res.data, `Robot_gold.mq4`);
     });
   };
+
+  const download_eurusd = (symbol) => {
+    Axios({
+      url: `http://localhost:5555/gold`,
+      method: 'GET',
+      responseType: 'blob'
+    }).then((res) => {
+      console.log(res);
+      fileDownload(res.data, `Robot_eurusd.mq4`);
+    });
+  };
+
+  const download_usdjpy = (symbol) => {
+    Axios({
+      url: `http://localhost:5555/gold`,
+      method: 'GET',
+      responseType: 'blob'
+    }).then((res) => {
+      console.log(res);
+      fileDownload(res.data, `Robot_usdjpy.mq4`);
+    });
+  };
+
+  
 
   const openPopup = (symbol) => {
     switch (symbol) {
@@ -91,7 +115,7 @@ function Trip() {
       <div className="tripcard">
         <TripData image={Goldpic2} heading="GOLD" text="Winrate : 1% Drawdown : 99%" />
         <div className="button-container">
-          <button className="goldButton" onClick={() => download('GOLD')}>
+          <button className="goldButton" onClick={() => download_gold('GOLD')}>
             GOLD
           </button>
           <button className="goldview" onClick={() => openPopup('GOLD')}>
@@ -107,7 +131,7 @@ function Trip() {
 
         <TripData image={symbol2} heading="EURUSD" text="Winrate : 1% Drawdown : 99%" />
         <div className="button-container">
-          <button className="eurusdButton" onClick={() => download('EURUSD')}>
+          <button className="eurusdButton" onClick={() => download_eurusd('EURUSD')}>
             EURUSD
           </button>
           <button className="eurusdview" onClick={() => openPopup('EURUSD')}>
@@ -123,7 +147,7 @@ function Trip() {
 
         <TripData image={symbol3} heading="USDJPY" text="Winrate : 1% Drawdown : 99%" />
         <div className="button-container">
-          <button className="usdjpyButton" onClick={() => download('USDJPY')}>
+          <button className="usdjpyButton" onClick={() => download_usdjpy('USDJPY')}>
             USDJPY
           </button>
           <button className="usdjpyview" onClick={() => openPopup('USDJPY')}>
