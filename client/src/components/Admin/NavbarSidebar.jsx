@@ -77,10 +77,10 @@ function NavbarSidebar() {
               </Link>
             </li>
             <li>
-              <button onClick={handleLogout}>
-                <FontAwesomeIcon icon={faSignOutAlt} className="icon"/>
-                Logout
-              </button>
+            <button className="logout-button" onClick={handleLogout}>
+              <FontAwesomeIcon icon={faSignOutAlt} className="icon"/>
+              Logout
+            </button>
             </li>
           </ul>
         </div>

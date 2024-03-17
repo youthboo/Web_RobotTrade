@@ -10,7 +10,6 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     token: { type: String },
-    status: {type: String, default: 'Active'},
     isAdmin: { type: Boolean, default: false } // เพิ่มฟิลด์ isAdmin
 });
 

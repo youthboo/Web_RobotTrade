@@ -111,6 +111,19 @@
     margin-right: 10px;
   }
 
+  .logout-button {
+    background-color: #ffffff; /* เปลี่ยนสีพื้นหลังปุ่ม Logout เป็นสีแดง */
+    color: #fff; /* เปลี่ยนสีตัวอักษรของปุ่ม Logout เป็นสีขาว */
+    border: none; /* ไม่มีเส้นขอบ */
+    padding: 10px 20px; /* กำหนดการเรียงตัวของข้อความภายในปุ่ม Logout */
+    border-radius: 5px; /* กำหนดรูปร่างของขอบปุ่มเป็นวงกลม */
+    cursor: pointer; /* เปลี่ยน cursor เมื่อนำเมาส์ไปชี้ที่ปุ่ม Logout */
+  }
+  
+  .logout-button:hover {
+    background-color: #ff3333; /* เมื่อโฮเวอร์ที่ปุ่ม Logout ให้เปลี่ยนสีพื้นหลังเป็นสีแดงเข้ม */
+  }
+  
   
 
   

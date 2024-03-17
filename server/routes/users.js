@@ -25,14 +25,14 @@ router.post("/", async(req, res) => {
 
 })
 
-// GET all users
+// GET all non-admin users
 router.get('/', async (req, res) => {
-    try {
-        const users = await User.find();
-        res.status(200).send(users);
-    } catch (error) {
-        res.status(500).send({ message: 'Internal Server Error' });
-    }
+  try {
+      const nonAdminUsers = await User.find({ isAdmin: false });
+      res.status(200).send(nonAdminUsers);
+  } catch (error) {
+      res.status(500).send({ message: 'Internal Server Error' });
+  }
 });
 
 router.get('/count', async (req, res) => {
@@ -86,6 +86,25 @@ router.put("/:id", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+// DELETE USER
+router.delete("/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+    await user.deleteOne(); // หรือใช้ findByIdAndDelete(req.params.id)
+    res.status(200).send("User deleted successfully");
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+
+module.exports = router;
+
 
 module.exports = router;
 

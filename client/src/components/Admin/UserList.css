@@ -4,7 +4,7 @@ table {
     margin: 0 auto; 
     border-collapse: collapse;
     background-color: #003399; 
-    border-radius: 8px; /* Set border-radius to create rounded corners */
+    border-radius: 8px; 
     overflow: hidden;
 }
 

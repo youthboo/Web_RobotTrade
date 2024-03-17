@@ -10,7 +10,6 @@ import Dash from './components/Admin/Dashboard';
 import Summary from './components/Admin/Summary';
 import UserList from './components/Admin/UserList';
 import Model from './components/Admin/Model';
-import EditUser from './components/Admin/EditUser';
 import UserPort from './components/Page/UserPort';
 import BotConnect from './components/Page/BotConnect';
 import UserPayment from './components/Page/UserPayment';
@@ -45,7 +44,6 @@ function App() {
             <Route path='/admin/summary' element={<Summary />} />
             <Route path='/admin/userlist' element={<UserList />} />
             <Route path='/admin/model' element={<Model />} />
-            <Route path='/admin/users/:id/edit' element={<EditUser />} />
           </>
         )}
 
