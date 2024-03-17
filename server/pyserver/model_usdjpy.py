@@ -4,10 +4,10 @@ import zmq
 import json
 import tensorflow as tf
 
-model_path = "server/pyserver/test_15M.h5"
+model_path = "server/pyserver/usdjpy_15M.h5"
 model = tf.keras.models.load_model(model_path)
 
-file_path = "server/pyserver/scaler_params.npy"
+file_path = "server/pyserver/scaler_params_usdjpy.npy"
 scaler = MinMaxScaler()
 scaler.min_, scaler.scale_ = np.load(file_path)
 

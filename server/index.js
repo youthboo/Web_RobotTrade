@@ -12,6 +12,7 @@ const slipRoutes = require('./routes/loadslip')
 const admincheckRoutes = require('./routes/admin')
 const checkRoutes = require('./routes/checkout')
 const profileRoutes = require('./routes/profile')
+const paymentRoutes = require('./routes/status')
 const webhookRoutes = require('./routes/webhook')
 const cron = require('node-cron');
 const axios = require('axios');
@@ -88,10 +89,11 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(err => console.error('MongoDB connection error:', err));
 
 //middlewares
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
 app.use(cors())
+app.use('/api', webhookRoutes)
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('uploads'))
+app.use(express.json())
 
 //routes
 app.use('/api/users', userRoutes)
@@ -103,7 +105,7 @@ app.use('/api', slipRoutes)
 app.use('/api', admincheckRoutes)
 app.use('/api', checkRoutes)
 app.use('/api', profileRoutes)
-app.use('/api', webhookRoutes)
+app.use('/api', paymentRoutes)
 
 app.get("/gold",(req,res)=>{
     res.download("bot_gold.mq4")
@@ -116,5 +118,8 @@ app.get("/eurusd",(req,res)=>{
 app.get("/usdjpy",(req,res)=>{
     res.download("bot_usdjpy.mq4")
 })
+
+
+
 const port = process.env.PORT || 5555;
 app.listen(port,() => console.log("Listening on port..."))
