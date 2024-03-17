@@ -5,10 +5,8 @@ const cors = require('cors');
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/users')
 const authRoutes = require('./routes/auth')
-const genQrRoutes = require('./routes/payment')
 const mt4DataRoutes = require('./routes/mt4data');
 const commissionRoutes = require('./routes/commissionPay')
-const slipRoutes = require('./routes/loadslip')
 const admincheckRoutes = require('./routes/admin')
 const checkRoutes = require('./routes/checkout')
 const profileRoutes = require('./routes/profile')
@@ -96,10 +94,8 @@ app.use(express.json())
 //routes
 app.use('/api/users', userRoutes)
 app.use('/api/auth', authRoutes)
-app.use('/api/Payment', genQrRoutes);
 app.use('/api', mt4DataRoutes); 
 app.use('/api', commissionRoutes)
-app.use('/api', slipRoutes)
 app.use('/api', admincheckRoutes)
 app.use('/api', checkRoutes)
 app.use('/api', profileRoutes)

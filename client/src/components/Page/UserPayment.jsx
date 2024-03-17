@@ -3,6 +3,7 @@ import './UserPayment.css';
 import Navbar from "../Navbar";
 import { loadStripe } from '@stripe/stripe-js';
 import Swal from 'sweetalert2';
+import backportImage from '../../assets/piceur.jpg'; 
 
 const stripePromise = loadStripe('pk_test_51Otn4m1ObdAUbr0ZbfkEXGlUulBwVCPevy47Lwnbkh5KtQMlYyAxhuaN69myWapVx56qcp5LozDubVVAE8EXvLFO00EusqAFqZ');
 
@@ -79,7 +80,7 @@ function UserPayment() {
   };
 
   return (
-    <div className="PaymentContainer">
+    <div className="PaymentContainer" style={{ backgroundImage: `url(${backportImage})` }}>
       <Navbar />
       <form className="PaymentForm" onSubmit={handleSubmit}>
         <div className="FormRow">
@@ -89,7 +90,6 @@ function UserPayment() {
         <div className="ErrorMessage" id="error-message" role="alert"></div>
         <p className="Note">Please make the payment on time.</p>
         <button className="SubmitButton" id="submit-button" type="submit">Pay</button>
-        
       </form>
     </div>
   );

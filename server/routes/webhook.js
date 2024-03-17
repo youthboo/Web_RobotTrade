@@ -28,11 +28,9 @@ router.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req
                     date: new Date(),
                 };
 
-                // Find commission record with matching email and without 'succeeded' status
                 const commissionRecord = await CommissionModel.findOne({ email: commissionData.email, statusPayment: { $ne: 'succeeded' } });
 
                 if (commissionRecord) {
-                    // Update commission record with new data
                     commissionRecord.amountReceived = parseFloat(((event.data.object.amount_captured/100)/35.).toFixed(3));
                     commissionRecord.statusPayment = event.data.object.status;
 

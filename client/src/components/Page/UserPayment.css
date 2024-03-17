@@ -4,18 +4,30 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgb(255, 255, 255); /* สีพื้นหลังทึบ */
+  background-image: url('../../assets/piceur.jpg');
+  background-size: cover;
+  background-position: center;
+  backdrop-filter: blur(20px); /* ใช้ backdrop-filter แทน filter */
+  background-color: rgba(255, 255, 255, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .PaymentForm {
-  background-color: #fff; /* สีพื้นหลังของแบบฟอร์ม */
+  background-color: #fff; 
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5); /* เพิ่มเงา */
-  width: 400px; /* กำหนดความกว้าง */
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+  width: 400px;
+}
+
+.bottom-left-icon {
+  position: fixed; 
+  bottom: 0; 
+  left: 0; 
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
 .Note {
