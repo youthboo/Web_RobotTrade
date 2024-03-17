@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bodyParser = require('body-parser'); // เพิ่มบรรทัด
+const bodyParser = require('body-parser');
 const stripe = require('stripe')('sk_test_51Otn4m1ObdAUbr0ZsG9q5WjdiRnCbA422WFxnmbnWMTxRm52vhQ8MgoYtHWZgqUXdFzABLsTdNmSBaO7wGenZV4b00BSrVjkG3');
 
 router.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req, res) => {
@@ -18,29 +18,33 @@ router.post('/webhook', bodyParser.raw({ type: 'application/json' }), async (req
         console.log("Event ID:", event.data.object.id);
 
         switch (event.type) {
-            case 'payment_intent.succeeded':
-                console.log('PaymentIntent succeeded:', event.data.object.id);
-                break;
-
             case 'charge.succeeded':
-                console.log('Charge succeeded:', event.data.object.id);
-                try {
-                    const Payment = require('../models/payment');
-                    const paymentData = {
-                        email: event.data.object.billing_details.email,
-                        status: event.data.object.status,
-                        amount: event.data.object.amount,
-                        amountReceived: event.data.object.amount_captured,
-                        currency: event.data.object.currency,
-                    };
-                    // Create Payment record in the database
-                    const newPayment = await Payment.create(paymentData);
-                    console.log('Payment created:', newPayment);
-                } catch (error) {
-                    console.error('Error creating Payment:', error);
-                }
-                break;
+            console.log('Charge succeeded:', event.data.object.id);
+            try {
+                const CommissionModel = require('../models/commission');
+                const commissionData = {
+                    email: event.data.object.billing_details.email,
+                    payment: parseFloat(((event.data.object.amount/100)/35.).toFixed(3)),
+                    date: new Date(),
+                };
 
+                // Find commission record with matching email and without 'succeeded' status
+                const commissionRecord = await CommissionModel.findOne({ email: commissionData.email, status: { $ne: 'succeeded' } });
+
+                if (commissionRecord) {
+                    // Update commission record with new data
+                    commissionRecord.amountReceived = parseFloat(((event.data.object.amount_captured/100)/35.).toFixed(3));
+                    commissionRecord.status = event.data.object.status;
+
+                    const updatedCommission = await commissionRecord.save();
+                    console.log('Commission record updated:', updatedCommission);
+                } else {
+                    console.log('No commission record found for email:', commissionData.email);
+                }
+            } catch (error) {
+                console.error('Error updating Commission record:', error);
+            }
+            break;
             case 'charge.expired':
                 console.log('Charge expired:', event.data.object.id);
                 break;

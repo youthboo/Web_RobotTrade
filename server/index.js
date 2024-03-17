@@ -12,13 +12,12 @@ const slipRoutes = require('./routes/loadslip')
 const admincheckRoutes = require('./routes/admin')
 const checkRoutes = require('./routes/checkout')
 const profileRoutes = require('./routes/profile')
-const paymentRoutes = require('./routes/status')
 const webhookRoutes = require('./routes/webhook')
 const cron = require('node-cron');
 const axios = require('axios');
 const { User } = require('./models/user')
 
-cron.schedule('55 2 16 * *', async () => {
+cron.schedule('31 21 17 * *', async () => {
     try {
         console.log('Cron job started at', new Date());
         await saveCommissionData();
@@ -74,7 +73,6 @@ async function saveCommissionData() {
     }
 }
 
-
 async function saveCommissionToDatabase(commission) {
     try {
         commission.date = new Date();
@@ -105,7 +103,6 @@ app.use('/api', slipRoutes)
 app.use('/api', admincheckRoutes)
 app.use('/api', checkRoutes)
 app.use('/api', profileRoutes)
-app.use('/api', paymentRoutes)
 
 app.get("/gold",(req,res)=>{
     res.download("bot_gold.mq4")

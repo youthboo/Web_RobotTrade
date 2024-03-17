@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserPort.css';
-import Swal from 'sweetalert2';
+import Navbar from "../Navbar";
 
 const UserPort = () => {
     const [mt4Data, setMt4Data] = useState([]);
@@ -52,6 +52,7 @@ const UserPort = () => {
 
     return (
         <div>
+            <Navbar />
             <h1 className='topic'>My Portfolio</h1>
             <div className="input-container">
                 <label htmlFor="loginInput">Enter your Port Number</label>
