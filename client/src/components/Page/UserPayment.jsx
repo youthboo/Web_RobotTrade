@@ -79,15 +79,17 @@ function UserPayment() {
   };
 
   return (
-    <div className="Payment">
+    <div className="PaymentContainer">
       <Navbar />
-      <form id="payment-form" onSubmit={handleSubmit}>
-        <div className="form-row">
-          <label htmlFor="email">Email</label>
-          <input id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+      <form className="PaymentForm" onSubmit={handleSubmit}>
+        <div className="FormRow">
+          <label className="FormLabel" htmlFor="email">Email</label>
+          <input className="EmailInput" id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </div>
-        <div id="error-message" role="alert"></div>
-        <button id="submit-button" type="submit">Pay</button>
+        <div className="ErrorMessage" id="error-message" role="alert"></div>
+        <p className="Note">Please make the payment on time.</p>
+        <button className="SubmitButton" id="submit-button" type="submit">Pay</button>
+        
       </form>
     </div>
   );

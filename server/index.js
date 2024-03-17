@@ -17,7 +17,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 const { User } = require('./models/user')
 
-cron.schedule('45 21 17 * *', async () => {
+cron.schedule('25 1 18 * *', async () => {
     try {
         console.log('Cron job started at', new Date());
         await saveCommissionData();

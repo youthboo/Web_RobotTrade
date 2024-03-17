@@ -79,6 +79,42 @@ table th {
     background-color: #0056b3;
 }
 
+.popup {
+    position: fixed; /* ติดตั้งตัวตรึงเพื่อไม่ให้ Popup ไปเลื่อนไปด้วยเนื้อหาหลัก */
+    top: 50%; /* จัดตำแหน่งให้ตรงกลางแนวตั้ง */
+    left: 50%; /* จัดตำแหน่งให้ตรงกลางแนวนอน */
+    transform: translate(-50%, -40%); /* ย้ายตำแหน่ง Popup ให้อยู่ตรงกลางทั้งแนวตั้งและแนวนอน */
+    width: 80%; /* กำหนดความกว้างของ Popup */
+    max-height: 80%; /* กำหนดความสูงสูงสุดของ Popup เพื่อให้มีการเลื่อนขึ้นลงได้ */
+    overflow-y: auto; /* เพิ่มการเลื่อนขึ้นลงให้กับ Popup เมื่อข้อมูลมากเกินไป */
+    background-color: rgba(255, 255, 255, 0.9); /* สีพื้นหลังของ Popup */
+    border-radius: 20px; /* กำหนดรูปร่างของเส้นขอบให้มีเมฆเข้ามาบางส่วน */
+    padding: 20px; /* เพิ่มช่องว่างรอบขอบของ Popup */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* เพิ่มเงาใต้ขอบของ Popup */
+    z-index: 1000; /* กำหนดค่า z-index เพื่อให้ Popup อยู่ด้านหน้าของเนื้อหาหลัก */
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #000;
+    padding: 5px;
+    z-index: 1001;
+}
+
+.close-btn:hover {
+    color: #ffffff;
+}
+
+.popup p {
+    font-weight: 500;
+    color: #0129ad;
+}
+
 
 @media (max-width: 850px) {
     input[type="text"] {

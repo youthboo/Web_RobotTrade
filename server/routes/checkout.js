@@ -6,7 +6,7 @@ require('dotenv').config();
 router.post('/create-payment-intent', async (req, res) => {
     try {
         const { email } = req.body;
-        const commissionData = await CommissionModel.findOne({ email });
+        const commissionData = await CommissionModel.findOne({ email }).sort({date: -1}); // เพิ่ม .sort({date: -1}) เพื่อเรียงลำดับข้อมูลตามวันที่ล่าสุดก่อน
         if (!commissionData) {
             return res.status(400).json({ error: 'Commission data not found for the provided email' });
         }

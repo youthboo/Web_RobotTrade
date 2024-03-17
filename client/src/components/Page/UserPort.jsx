@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserPort.css';
 import Navbar from "../Navbar";
+import { FaTimes } from 'react-icons/fa';
 
 const UserPort = () => {
     const [mt4Data, setMt4Data] = useState([]);
@@ -10,6 +11,7 @@ const UserPort = () => {
     const [showData, setShowData] = useState(false);
     const [totalProfit, setTotalProfit] = useState(0);
     const [commissionPayment, setCommissionPayment] = useState(0);
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         if (showData) {
@@ -23,6 +25,11 @@ const UserPort = () => {
 
     const handleButtonClick = () => {
         setShowData(true);
+        togglePopup(); // เรียกใช้ togglePopup เพื่อแสดง Popup เมื่อคลิกที่ปุ่ม "Click!"
+    };
+
+    const togglePopup = () => {
+        setShowPopup(!showPopup);
     };
 
     const fetchData = async () => {
@@ -67,31 +74,40 @@ const UserPort = () => {
             </div>
             {showData && !loading && (
                 <div>
-                    <p>Total Profit : ${totalProfit.toFixed(2)}</p> 
-                    <p>Commission Payment : ${commissionPayment.toFixed(2)}</p> 
-                    {/*<button className='btn-pay' onClick={sendCommissionPayment}>Payment</button>*/}
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Order number</th>
-                                <th>Balance</th>
-                                <th>Equity</th>
-                                <th>Profit</th>
-                                <th>Symbol</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {mt4Data.map(data => (
-                                <tr key={data._id}>
-                                    <td>{data.order.ticket}</td>
-                                    <td>{data.balance}</td>
-                                    <td>{data.equity}</td>
-                                    <td>{data.profit}</td>
-                                    <td>{data.symbol}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    {showPopup && (
+                        <div className="popup">
+                            <button className="close-btn" onClick={togglePopup}>
+                                <FaTimes />
+                            </button>
+                            <div>
+                                <p>Total Profit : ${totalProfit.toFixed(2)}</p> 
+                                <p>Commission Payment : ${commissionPayment.toFixed(2)}</p>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order number</th>
+                                        <th>Balance</th>
+                                        <th>Equity</th>
+                                        <th>Profit</th>
+                                        <th>Symbol</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {mt4Data.map(data => (
+                                        <tr key={data._id}>
+                                            <td>{data.order.ticket}</td>
+                                            <td>{data.balance}</td>
+                                            <td>{data.equity}</td>
+                                            <td>{data.profit}</td>
+                                            <td>{data.symbol}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+
                 </div>
             )}
         </div>
