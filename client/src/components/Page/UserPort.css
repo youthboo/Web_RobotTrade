@@ -1,11 +1,45 @@
-/* UserPort.css */
 .input-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* จัดข้อมูลตามแนวนอนตรงกลาง */
-    align-items: center; /* จัดข้อมูลตามแนวตั้งตรงกลาง */
-    margin-bottom: 20px;
-    
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px; 
+    z-index: 1000; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    width: 500px; 
+    height: 280px;
+}
+
+.input-container h1 {
+    margin-top: 0; 
+    margin-bottom: 10px;
+}
+
+.input-container label {
+    display: block; 
+    margin-bottom: 10px; 
+}
+
+.input-container input[type="text"] {
+    width: calc(100% - 20px); 
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.input-container button {
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    border: none; 
+    background-color: #0057b4;
+    color: #fff; 
+    cursor: pointer; 
+}
+
+.input-container button:hover {
+    background-color: #3a99ff; 
 }
 
 .topic {
@@ -27,7 +61,7 @@ label {
 }
 
 .btn-showdata {
-    width: 8%;
+    width: 20%;
     padding: 10px 20px;
     font-size: 16px;
     border: none;

@@ -58,10 +58,10 @@ const UserPort = () => {
     };
 
     return (
-        <div>
+        <div >
             <Navbar />
-            <h1 className='topic'>My Portfolio</h1>
             <div className="input-container">
+            <h1 className='topic'>My Portfolio</h1>
                 <label htmlFor="loginInput">Enter your Port Number</label>
                 <input 
                     className='input-portnum'
