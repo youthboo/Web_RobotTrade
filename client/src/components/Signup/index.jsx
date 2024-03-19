@@ -1,35 +1,33 @@
 import { useState } from 'react'
 import styles from './styles.module.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom' // Import useNavigate
 import axios from 'axios'
 
 const Signup = () => {
     const [data, setData] = useState({
         IDcard: "",
+        port: "",
         name: "",
         email: "",
         password: ""
     })
 
     const [error, setError] = useState('')
-    const navigate = useNavigate()
+    const navigate = useNavigate() // Use useNavigate hook
 
-    const handleChange = ({currentTarget: input}) => {
-        setData({...data, [input.name]: input.value})
+    const handleChange = ({ currentTarget: input }) => {
+        setData({ ...data, [input.name]: input.value })
     }
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             const url = "http://localhost:5555/api/users"
-            const {data: res} = await axios.post(url, data)
-            window.location = '/login' // เมื่อ Sign Up เสร็จสิ้นให้ไปยังหน้า Login
+            const { data: res } = await axios.post(url, data)
+            navigate('/login') 
             console.log(res.message)
         } catch (error) {
-            if(error.response &&
-                error.response.status >= 400 &&
-                error.response.status <= 500
-            ) {
+            if (error.response && error.response.status >= 400 && error.response.status <= 500) {
                 setError(error.response.data.message)
             }
         }
@@ -50,22 +48,22 @@ const Signup = () => {
                     <form className={styles.form_container} onSubmit={handleSubmit}>
                         <h1>Create Account</h1>
                         <input
-                            type='IDcard'
+                            type='text'
                             placeholder='ID Card'
                             name='IDcard'
                             onChange={handleChange}
                             value={data.IDcard}
                             required
-                            className={styles.input} 
+                            className={styles.input}
                         />
                         <input
-                            type='port'
+                            type='text'
                             placeholder='Port Number'
                             name='port'
                             onChange={handleChange}
                             value={data.port}
                             required
-                            className={styles.input} 
+                            className={styles.input}
                         />
                         <input
                             type='text'
@@ -74,7 +72,7 @@ const Signup = () => {
                             onChange={handleChange}
                             value={data.name}
                             required
-                            className={styles.input} 
+                            className={styles.input}
                         />
                         <input
                             type='email'
@@ -83,7 +81,7 @@ const Signup = () => {
                             onChange={handleChange}
                             value={data.email}
                             required
-                            className={styles.input} 
+                            className={styles.input}
                         />
                         <input
                             type='password'
@@ -92,7 +90,7 @@ const Signup = () => {
                             onChange={handleChange}
                             value={data.password}
                             required
-                            className={styles.input} 
+                            className={styles.input}
                         />
                         {error && <div className={styles.error_msg}>{error}</div>}
                         <button type='submit' className={styles.green_btn}>

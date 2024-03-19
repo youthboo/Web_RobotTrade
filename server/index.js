@@ -15,7 +15,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 const { User } = require('./models/user')
 
-cron.schedule('25 1 18 * *', async () => {
+cron.schedule('15 0 19 * *', async () => {
     try {
         console.log('Cron job started at', new Date());
         await saveCommissionData();
@@ -43,11 +43,8 @@ async function saveCommissionData() {
             }
         }
 
-        // บันทึก commission ลงในฐานข้อมูล
         for (const [userLogin, totalProfit] of commissionMap) {
             const commissionAmount = totalProfit * 0.1;
-
-            // ค้นหาผู้ใช้โดยใช้ userLogin จาก User model
             const user = await User.findOne({ port: userLogin });
 
             if (user && user.email) {
@@ -55,16 +52,14 @@ async function saveCommissionData() {
                     userLogin: userLogin,
                     commissionPayment: commissionAmount,
                     datetime: new Date(),
-                    email: user.email // เพิ่ม email ของผู้ใช้ในข้อมูล commission
+                    email: user.email 
                 };
 
-                // เก็บข้อมูล commission ลงในฐานข้อมูล
                 await saveCommissionToDatabase(commissionData);
             } else {
                 console.log(`Email not found for userLogin: ${userLogin}`);
             }
         }
-
         console.log('Commission data saved successfully');
     } catch (error) {
         console.error('Error saving commission data:', error);
@@ -111,8 +106,6 @@ app.get("/eurusd",(req,res)=>{
 app.get("/usdjpy",(req,res)=>{
     res.download("bot_usdjpy.mq4")
 })
-
-
 
 const port = process.env.PORT || 5555;
 app.listen(port,() => console.log("Listening on port..."))

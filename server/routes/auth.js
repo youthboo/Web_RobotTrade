@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const { User } = require('../models/user');
 const Joi = require('joi');
-const jwt = require('jsonwebtoken'); // เพิ่มการนำเข้าโมดูล jsonwebtoken
-const bcrypt = require('bcrypt'); // เพิ่มการนำเข้าโมดูล bcrypt
+const jwt = require('jsonwebtoken'); 
+const bcrypt = require('bcrypt'); 
 
 router.post('/', async (req, res) => {
     try {
-        const { error } = validate(req.body);
+        const { error } = validateLogin(req.body);
         if (error) 
             return res.status(400).send({ message: error.details[0].message });
 
@@ -14,27 +14,25 @@ router.post('/', async (req, res) => {
         if (!user)
             return res.status(401).send({ message: 'Invalid Email or Password' });
 
-        const validPassword = await bcrypt.compare(
-            req.body.password, user.password
-        );
+        const validPassword = await bcrypt.compare(req.body.password, user.password);
         if (!validPassword)
             return res.status(401).send({ message: 'Invalid Email or Password' });
 
         const token = user.generateAuthToken();
-        const isAdmin = user.isAdmin; // เพิ่มการตรวจสอบว่าเป็น admin หรือไม่
+        const isAdmin = user.isAdmin;
 
-        // ส่งชื่อผู้ใช้งานและ Token กลับไป
         res.status(200).send({
             data: { token, user: user.name, isAdmin }, 
             message: 'Logged in successfully'
         });
 
     } catch (error) {
+        console.error('Error logging in:', error);
         res.status(500).send({ message: 'Internal Server Error' });
     }
 });
 
-const validate = (data) => {
+const validateLogin = (data) => {
     const schema = Joi.object({
         email: Joi.string().email().required().label('Email'),
         password: Joi.string().required().label('Password'),

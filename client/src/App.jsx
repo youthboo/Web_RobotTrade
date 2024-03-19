@@ -36,10 +36,14 @@ function App() {
         <Route path='/signup' element={<Signup />}/>
         <Route path='/login' element={<Login />}/>
 
-        <Route path='/admin' element={isAdmin ? <Dash /> : <Navigate to="/" />} />
-        <Route path='/admin/summary' element={isAdmin ? <Summary /> : <Navigate to="/" />} />
-        <Route path='/admin/userlist' element={isAdmin ? <UserList /> : <Navigate to="/" />} />
-        <Route path='/admin/model' element={isAdmin ? <Model /> : <Navigate to="/" />} />
+        {isAdmin && (
+          <>
+            <Route path='/admin' element={<Dash />} />
+            <Route path='/admin/summary' element={<Summary />} />
+            <Route path='/admin/userlist' element={<UserList />} />
+            <Route path='/admin/model' element={<Model />} />
+          </>
+        )}
 
       </Routes>
     </div>
