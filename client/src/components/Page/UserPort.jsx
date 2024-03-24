@@ -86,6 +86,7 @@ const UserPort = () => {
                             <table>
                                 <thead>
                                     <tr>
+                                        <th>Datetime</th>
                                         <th>Order number</th>
                                         <th>Balance</th>
                                         <th>Equity</th>
@@ -96,6 +97,7 @@ const UserPort = () => {
                                 <tbody>
                                     {mt4Data.map(data => (
                                         <tr key={data._id}>
+                                            <td>{new Date(data.datetime).toLocaleString()}</td>
                                             <td>{data.order.ticket}</td>
                                             <td>{data.balance}</td>
                                             <td>{data.equity}</td>

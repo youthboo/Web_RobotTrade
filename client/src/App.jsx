@@ -13,6 +13,7 @@ import Model from './components/Admin/Model';
 import UserPort from './components/Page/UserPort';
 import BotConnect from './components/Page/BotConnect';
 import UserPayment from './components/Page/UserPayment';
+import UpdateModel from './components/Admin/UpdateModel';
 
 function App() {
   
@@ -42,6 +43,7 @@ function App() {
             <Route path='/admin/summary' element={<Summary />} />
             <Route path='/admin/userlist' element={<UserList />} />
             <Route path='/admin/model' element={<Model />} />
+            <Route path='/admin/updatemodel' element={<UpdateModel />} />
           </>
         )}
 

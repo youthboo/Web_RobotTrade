@@ -14,6 +14,7 @@ const webhookRoutes = require('./routes/webhook')
 const cron = require('node-cron');
 const axios = require('axios');
 const { User } = require('./models/user')
+const updateFileRoutes = require('./routes/updateFileRoutes');
 
 cron.schedule('15 0 19 * *', async () => {
     try {
@@ -94,18 +95,8 @@ app.use('/api', commissionRoutes)
 app.use('/api', admincheckRoutes)
 app.use('/api', checkRoutes)
 app.use('/api', profileRoutes)
+app.use('/api', updateFileRoutes)
 
-app.get("/gold",(req,res)=>{
-    res.download("bot_gold.mq4")
-})
-
-app.get("/eurusd",(req,res)=>{
-    res.download("bot_eurusd.mq4")
-})
-
-app.get("/usdjpy",(req,res)=>{
-    res.download("bot_usdjpy.mq4")
-})
 
 const port = process.env.PORT || 5555;
 app.listen(port,() => console.log("Listening on port..."))

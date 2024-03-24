@@ -4,10 +4,9 @@ const MT4DataModel = require('./models/Mt4Data');
 require('dotenv').config();
 
 async function startListening() {
-    // เชื่อมต่อ MongoDB
     mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+        .then(() => console.log('MongoDB connected'))
+        .catch(err => console.error('MongoDB connection error:', err));
 
     // เปิดการเชื่อมต่อ ZeroMQ socket
     const socket = new zmq.Reply();
@@ -21,18 +20,16 @@ async function startListening() {
             continue; 
         }
 
-        const data = JSON.parse(msg.toString());
-
-        // เพิ่มข้อมูลวันที่และเวลาในข้อมูล
-        data.datetime = new Date(); // กำหนดวันที่และเวลาปัจจุบันให้กับข้อมูล
-
-        // เก็บข้อมูลใน MongoDB
         try {
+            const data = JSON.parse(msg.toString());
+            data.datetime = new Date(); // เพิ่มข้อมูลเวลา
             const newData = new MT4DataModel(data);
             await newData.save();
             console.log("Data saved to MongoDB:", newData);
         } catch (error) {
-            console.error("Error saving data to MongoDB:", error);
+            console.error("Error processing received JSON:", error);
+            // จัดการข้อผิดพลาดที่เกิดขึ้นในการแปลง JSON หรือการเก็บข้อมูล
+            // เช่น แสดงข้อความแจ้งเตือนหรือบันทึกข้อผิดพลาดไปยังฐานข้อมูลหรือไฟล์ข้อความ
         }
 
         // ตอบกลับด้วยข้อความว่าง
@@ -41,3 +38,4 @@ async function startListening() {
 }
 
 startListening().catch(console.error);
+

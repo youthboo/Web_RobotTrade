@@ -4,44 +4,50 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 
 router.post("/", async (req, res) => {
-    try {
-        if (!req.body.IDcard || !req.body.port) {
-            return res.status(400).send({ message: "ID Card and Port Number are required" });
-        }
+  try {
+      if (!req.body.IDcard || !req.body.port) {
+          return res.status(400).send({ message: "ID Card and Port Number are required" });
+      }
 
-        const { error } = validate(req.body);
-        if (error) {
-            return res.status(400).send({ message: error.details[0].message });
-        }
+      const { error } = validate(req.body);
+      if (error) {
+          return res.status(400).send({ message: error.details[0].message });
+      }
 
-        const user = await User.findOne({ email: req.body.email });
-        if (user) {
-            return res.status(409).send({ message: "User with given email already exists!" });
-        }
+      const user = await User.findOne({ email: req.body.email });
+      if (user) {
+          return res.status(409).send({ message: "User with given email already exists!" });
+      }
 
-        const salt = await bcrypt.genSalt(10); 
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+      // ตรวจสอบว่ามีผู้ใช้ที่ใช้ ID card หรือ port number เหมือนกันแล้วหรือไม่
+      const existingUser = await User.findOne({ $or: [{ IDcard: req.body.IDcard }, { port: req.body.port }] });
+      if (existingUser) {
+          return res.status(409).send({ message: "User with given ID card or Port number already exists!" });
+      }
 
-        const newUser = new User({
-            IDcard: req.body.IDcard,
-            port: req.body.port,
-            name: req.body.name,
-            email: req.body.email,
-            password: hashedPassword 
-        });
+      // สร้าง salt และ hash password
+      const salt = await bcrypt.genSalt(10); 
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-        await newUser.save();
+      // สร้างผู้ใช้ใหม่และบันทึกลงในฐานข้อมูล
+      const newUser = new User({
+          IDcard: req.body.IDcard,
+          port: req.body.port,
+          name: req.body.name,
+          email: req.body.email,
+          password: hashedPassword 
+      });
+      await newUser.save();
 
-        const token = jwt.sign({ _id: newUser._id }, process.env.JWTPRIVATEKEY, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: newUser._id }, process.env.JWTPRIVATEKEY, { expiresIn: '7d' });
 
-        res.status(201).send({ token, message: 'User created successfully' });
+      res.status(201).send({ token, message: 'User created successfully' });
 
-    } catch (error) {
-        console.error('Error creating user:', error);
-        res.status(500).send({ message: 'Internal Server Error' });
-    }
+  } catch (error) {
+      console.error('Error creating user:', error);
+      res.status(500).send({ message: 'Internal Server Error' });
+  }
 });
-
 
 // GET all non-admin users
 router.get('/', async (req, res) => {

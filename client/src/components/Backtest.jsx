@@ -53,8 +53,8 @@ function Backtest() {
 
   return (
     <div className='trip'>
-      <h1>Robot Trade</h1>
-      <p>You can choose bot!!!</p>
+      <h1>Backtest</h1>
+      <p>You can see result of backtest!!!</p>
       <div className='tripcard'>
         <TripData
           image={Goldpic2}

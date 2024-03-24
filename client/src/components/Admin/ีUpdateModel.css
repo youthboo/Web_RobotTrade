@@ -1,0 +1,41 @@
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.container form {
+  margin-top: 20px;
+}
+
+.container label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.container input[type="text"],
+.container input[type="file"],
+.container button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+}
+
+.container button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.container button:hover {
+  background-color: #45a049;
+}

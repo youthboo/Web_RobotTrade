@@ -77,6 +77,12 @@ function NavbarSidebar() {
               </Link>
             </li>
             <li>
+              <Link to="/admin/updatemodel"> 
+                <img src={ModelIcon} alt="Model Icon" className="icon" />
+                UpModel
+              </Link>
+            </li>
+            <li>
             <button className="logout-button" onClick={handleLogout}>
               <FontAwesomeIcon icon={faSignOutAlt} className="icon"/>
               Logout
