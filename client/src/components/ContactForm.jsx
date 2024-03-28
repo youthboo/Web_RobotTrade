@@ -3,17 +3,12 @@ import './ContactFormStyles.css'
 function ContactForm () {
     return(
         <div className='payment-container'>
-            <h1>Payment Conditions for Robot Trade Website</h1>
+            <h1>เงื่อนไขการชำระเงินสำหรับการเทรดบน Robot Trade</h1>
             <br/>
-            <p>Our robot trade website offers a straightforward payment process to ensure convenience for our users. All you need to do is enter your email and click, making payment hassle-free.</p>
-            <br />
-            <p>However, it's crucial to note the payment terms outlined by our platform. At the end of each month, users are required to settle their commission fees. Failure to do so within a grace period of 2 weeks into the following month will result in the suspension of bot usage.</p>
-            <br />
-            <p>Please be aware that if commission fees remain unpaid, access to your account will be restricted. Only after settling the outstanding commission fees will your account be reinstated for further usage.</p>
-
-            <br />
-            <p>We value transparency and fairness in our payment policies to maintain a trusted and reliable trading environment for all users. Should you have any questions or require assistance regarding payments, feel free to reach out to our customer support team.</p>
-            
+            <p>เว็บไซต์การซื้อขายโรบอตของเรามีกระบวนการชำระเงินที่ง่ายดายเพื่อให้ความสะดวกสบายแก่ผู้ใช้ของเราทุกท่าน เพียงแค่ใส่อีเมลของคุณและคลิก เพื่อทำให้กระบวนการชำระเงินไม่ซับซ้อน</p>
+            <p>อย่างไรก็ตาม การที่เราต้องการให้ท่านทราบถึงเงื่อนไขการชำระเงินที่ระบุไว้ในแพลตฟอร์มของเรามีความสำคัญ ณ ท้ายของแต่ละเดือน ผู้ใช้จะต้องชำระค่าคอมมิชชั่นของตนเอง หากไม่ทำเช่นนั้นภายในช่วงเวลาอนุญาต ภายใน 2 สัปดาห์เข้าสู่เดือนถัดไป ผลที่เกิดขึ้นคือการระงับการใช้งานบอท</p>
+            <p>กรุณาทราบว่าหากค่าคอมมิชชั่นยังค้างชำระ การเข้าถึงบัญชีของคุณจะถูกจำกัด เท่านั้นหลังจากชำระค่าคอมมิชชั่นที่ค้างชำระคงเหลือจะเปิดใช้งานบัญชีของคุณอีกครั้งสำหรับการใช้งานต่อไป</p>
+            <p>เราให้ความสำคัญกับความโปร่งใสและความเป็นธรรมในนโยบายการชำระเงินของเราเพื่อรักษาสภาพแวดล้อมการซื้อขายที่น่าเชื่อถือและเชื่อมั่นสำหรับผู้ใช้ทุกคน หากท่านมีคำถามหรือต้องการความช่วยเหลือเกี่ยวกับการชำระเงิน กรุณาติดต่อทีมสนับสนุนลูกค้าของเราโดยอิสระ</p>       
         </div>
     )
 }

@@ -52,7 +52,7 @@ function Backtest() {
 
   return (
     <div className='trip'>
-      <h1>Backtest</h1>
+      <h1>Resualt of Backtest</h1>
       <p>You can see result of backtest!!!</p>
       <div className='tripcard'>
         <TripData

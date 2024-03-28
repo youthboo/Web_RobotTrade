@@ -19,8 +19,8 @@ function Home () {
                 heroImg = {HeroImage}
                 title = 'Welcome, to my Robot Trade'
                 text = 'Let our bot assit you!'
-                buttonText = 'Try Demo'
-                url = '/'
+                buttonText = 'Start Now'
+                url = '/signup'
                 btnClass = 'show'
             />
             <Platform />
