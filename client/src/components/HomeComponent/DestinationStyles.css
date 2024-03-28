@@ -1,9 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 .destination {
     margin: 4rem 6rem;
+    font-family: 'Prompt', sans-serif;
 }
 
 .destination h1 {
     font-size: 3rem;
+    font-family: 'Prompt', sans-serif;
+    font-weight: 650;
+}
+
+.destination h3 {
+    font-family: 'Prompt', sans-serif;
+    font-weight: 400;
 }
 
 .first-des {
@@ -11,6 +21,11 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 4.5rem;
+    font-family: 'Prompt', sans-serif;
+}
+
+.first-des .text {
+    font-family: 'Prompt', sans-serif;
 }
 
 .first-des-reverse {
@@ -19,16 +34,29 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 4.5rem;
+    font-family: 'Prompt', sans-serif;
+}
+
+.first-des-reverse {
+    font-family: 'Prompt', sans-serif;
 }
 
 .des-text {
     width: 45%;
     text-align: start;
     font-size: 1.1rem;
+    font-family: 'Prompt', sans-serif;
 }
 
 .des-text h2 {
     padding-bottom: 1rem;
+    font-family: 'Prompt', sans-serif;
+    font-weight: 600;
+}
+
+.des-text p {
+    padding-bottom: 1rem;
+    font-family: 'Prompt', sans-serif;
 }
 
 .image {

@@ -6,6 +6,7 @@ import './NavbarSidebar.css';
 import DashboardIcon from '../../assets/dashboard.png';
 import UserIcon from '../../assets/user.png';
 import ModelIcon from '../../assets/model.png';
+import CheckIcon from '../../assets/approval.png';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
@@ -72,7 +73,7 @@ function NavbarSidebar() {
             </li>
             <li>
               <Link to="/admin/model"> 
-                <img src={ModelIcon} alt="Model Icon" className="icon" />
+                <img src={CheckIcon} alt="Model Icon" className="icon" />
                 Checklist
               </Link>
             </li>

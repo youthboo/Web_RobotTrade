@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.number-three {
+  width: 120px;
+  height: auto;
+}
+
+.user-manual {
+  margin-top: 90px;
+  margin-bottom: 300px;
+}
+
+.user-manual h2 {
+  font-family: 'Prompt', sans-serif;
+  font-weight: 500;
+}
+
+.install-bg {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 85%;
+  margin: 0 auto;
+}
+
+.install-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.install-step {
+  display: flex;
+  align-items: flex-start; /* ปรับจาก center เป็น flex-start */
+  gap: 20px;
+}
+
+.install-step img {
+  max-width: 800px;
+  width: 100%; 
+  height: auto; 
+}
+
+.install-step p {
+  font-family: 'Prompt', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 0; /* เพิ่ม margin-top เพื่อลดระยะห่างระหว่างรูปและข้อความ */
+}

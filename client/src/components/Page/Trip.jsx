@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './TripStyles.css';
 import TripData from './TripData';
-import Goldpic2 from '../assets/backpqy.jpg'
-import BacktestG from '../assets/image.png'
-import symbol2 from '../assets/eurusd.png';
-import symbol3 from '../assets/usdjpy.png';
+import Goldpic2 from '../../assets/backpqy.jpg'
+import BacktestG from '../../assets/image.png'
+import symbol2 from '../../assets/eurusd.png';
+import symbol3 from '../../assets/usdjpy.png';
+import Num2 from '../../assets/num2.png';
 import Axios from 'axios';
 import fileDownload from 'js-file-download';
 import './Trip.css';
@@ -13,19 +14,6 @@ function Trip() {
   const [isGoldPopupOpen, setIsGoldPopupOpen] = useState(false);
   const [isEurusdPopupOpen, setIsEurusdPopupOpen] = useState(false);
   const [isUsdjpyPopupOpen, setIsUsdjpyPopupOpen] = useState(false);
-  const [lotSize, setLotSize] = useState(0.1);
-
-  const handleLotSizeChange = (newLotSize) => {
-    setLotSize(newLotSize);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formattedLotSize = lotSize.toFixed(8);
-    const fileContent = `LotSize=${formattedLotSize}`;
-    const blob = new Blob([fileContent], { type: 'text/plain' });
-    fileDownload(blob, 'Robot.set');
-  };
 
   const downloadFile = (currencyPair) => {
     Axios({
@@ -34,7 +22,7 @@ function Trip() {
       responseType: 'blob'
     }).then((res) => {
       console.log(res);
-      fileDownload(res.data, `bot_${currencyPair}.mq4`);
+      fileDownload(res.data, `Bot_${currencyPair}.ex4`);
     }).catch((error) => {
       console.error('Error downloading file:', error);
     });
@@ -74,22 +62,9 @@ function Trip() {
 
   return (
     <div className="trip">
-      <h1>Robot Trade</h1>
-      <p>"Customize Parameters Here!!!"</p>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Lot Size :  <br />
-          <input
-            type="number"
-            value={lotSize}
-            onChange={(e) => handleLotSizeChange(parseFloat(e.target.value))}
-            step="0.01"
-            className="input-field"
-          />
-        </label>
-        
-        <button type="download">Download</button>
-      </form>
+      <img src={Num2} alt="Number two" className="number-two" />
+      <h2>Download Bot EA ของคู่เงินที่คุณต้องการ</h2>
+      <p>วิธีการติดตั้ง: เลือกคู่เงินที่คุณต้องการ จากนั้น click ที่ชื่อคู่เงิน ไฟล์ bot.ex4 จะถูก download และติดตั้งบนเครื่องของคุณ  <br /> *หมายเหตุ: คุณสามารถ download กี่คู่เงินก็ได้ตามที่คุณต้องการ</p>
       <div className="tripcard">
         <TripData image={Goldpic2} heading="GOLD" text="Winrate : 1% Drawdown : 99%" />
         <div className="button-container">

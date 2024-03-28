@@ -75,7 +75,7 @@ const UserPort = () => {
             {showData && !loading && (
                 <div>
                     {showPopup && (
-                        <div className="popup">
+                        <div className="port-popup">
                             <button className="close-btn" onClick={togglePopup}>
                                 <FaTimes />
                             </button>

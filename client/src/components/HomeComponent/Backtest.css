@@ -3,7 +3,17 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 10px; /* ปรับความห่างของ button-container กับ TripData */
+  margin-top: 10px; 
+}
+
+.popup {
+  max-width: 800px; 
+  max-height: 800px;
+}
+
+.popup img {
+  max-width: 200%; 
+  max-height: 200%; 
 }
 
 .goldButton,

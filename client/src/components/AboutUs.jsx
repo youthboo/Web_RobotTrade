@@ -3,13 +3,17 @@ import './AboutUsStyles.css'
 function AboutUs () {
     return(
         <div className='about-container'>
-            <h1>Why Choose "Our Robot Trade"?</h1>
-            <p>Accuracy: Our bot employs machine learning models to predict gold market movements accurately, enabling confident trading decisions.</p>
-            <p>Speed: Utilizing cutting-edge technology, we predict and execute trades swiftly in every market opportunity.</p>
-            <p>Risk Management: We are committed to providing profits and reducing investment risks with comprehensive and systematic risk management.</p>
-            <h3>Start Investing with "Our Robot Trade" Today</h3>
-            <br />
-            <p>Whether you're a novice investor or a seasoned professional, we are confident that "Our Robot Trade" will be an effective tool in generating profits for you. Join us and discover new opportunities in gold trading and profits!</p>
+            <h1>ทำไมคุณควรเลือก "Robot Trade"?</h1>
+
+            <p>ความแม่นยำ: บอทของเราใช้โมเดลการเรียนรู้ของเครื่องเพื่อทำนายการเคลื่อนไหวของตลาดทองอย่างแม่นยำ ทำให้สามารถตัดสินใจในการเทรดได้อย่างมั่นใจ</p>
+
+            <p>ความเร็ว: โดยใช้เทคโนโลยีขั้นสูง เราสามารถทำนายและดำเนินการเทรดอย่างรวดเร็วในทุกโอกาสในตลาด</p>
+
+            <p>การจัดการความเสี่ยง: เรามุ่งมั่นในการให้กำไรและลดความเสี่ยงในการลงทุนด้วยการจัดการความเสี่ยงอย่างเชิงระบบและอย่างครอบคลุม</p>
+
+            <h3>เริ่มลงทุนกับ "Robot Trade" วันนี้</h3>
+
+            <p>ไม่ว่าคุณจะเป็นนักลงทุนมือใหม่หรือมืออาชีพที่เชี่ยวชาญ เรามั่นใจว่า "Robot Trade" จะเป็นเครื่องมือที่มีประสิทธิภาพในการสร้างกำไรให้กับคุณ ร่วมกับเราและค้นพบโอกาสใหม่ในการเทรดทองและกำไร!</p>
             
         </div>
 

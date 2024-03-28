@@ -1,0 +1,51 @@
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .container form {
+    margin-top: 20px;
+  }
+
+  .container h1 {
+    margin-top: 20px;
+    font-weight: 400;
+  }
+  
+  .container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .container input[type="text"],
+  .container button {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+  }
+
+  .container input[type="file"] {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .container button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .container button:hover {
+    background-color: #45a049;
+  }
+  

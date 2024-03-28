@@ -1,13 +1,12 @@
 import React, { useState } from 'react'; 
-import './TripStyles.css';
-import TripData from './TripData';
-import Goldpic2 from '../assets/backpqy.jpg'
-import BacktestG from '../assets/image.png'
-import symbol2 from '../assets/eurusd.png';
-import symbol3 from '../assets/usdjpy.png';
+import TripData from '../Page/TripData';
+import Goldpic2 from '../../assets/backpqy.jpg'
+import BacktestG from '../../assets/image.png'
+import symbol2 from '../../assets/eurusd.png';
+import symbol3 from '../../assets/usdjpy.png';
 import Axios from 'axios';
 import fileDownload from 'js-file-download';
-
+import './Backtest.css';
 
 function Backtest() {
 
@@ -62,7 +61,6 @@ function Backtest() {
           text='Winrate : 1% Drawdown : 99%'
         />
         <div className='button-container'>
-
           <button className='goldview' onClick={openGoldPopup}>view</button>
         </div>
         {isGoldPopupOpen && (
@@ -78,7 +76,6 @@ function Backtest() {
           text="Winrate : 1% Drawdown : 99% "
         />
         <div className='button-container'>
-
           <button className='eurusdview' onClick={openEurusdPopup}>view</button>
         </div>
         {isEurusdPopupOpen && (
@@ -94,7 +91,6 @@ function Backtest() {
           text='Winrate : 1% Drawdown : 99%'
         />
         <div className='button-container'>
-
           <button className='usdjpyview' onClick={openUsdjpyPopup}>view</button>
         </div>
         {isUsdjpyPopupOpen && (
@@ -105,9 +101,7 @@ function Backtest() {
         )}
       </div>
     </div>
-  );
-  
-  
+  ); 
 }
 
 export default Backtest;

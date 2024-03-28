@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './UpdateModel.css';
+import NavbarSidebar from './NavbarSidebar'; 
 
 function UpdateModel() {
   const [file, setFile] = useState(null);
@@ -42,22 +44,25 @@ function UpdateModel() {
   };
 
   return (
-    <div className="container">
-      <h1>Update Model</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-            <label htmlFor="explain">Description:</label>
-            <input type="text" id="description" name="description" value={description} onChange={handleChange} />
+    <div>
+        <NavbarSidebar />
+        <div className="container">
+        <h1>Update Model</h1>
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label htmlFor="explain">Description:</label>
+                <input type="text" id="description" name="description" value={description} onChange={handleChange} />
+                </div>
+            <div>
+                <label htmlFor="currencyPair">Currency Pair:</label>
+                <input type="text" id="currencyPair" name="currencyPair" value={currencyPair} onChange={handleChange} />
             </div>
-        <div>
-            <label htmlFor="currencyPair">Currency Pair:</label>
-            <input type="text" id="currencyPair" name="currencyPair" value={currencyPair} onChange={handleChange} />
+            <div>
+                <input type="file" name="file" onChange={handleFileChange} />
+            </div>
+            <button type="submit">Upload File</button>
+        </form>
         </div>
-        <div>
-            <input type="file" name="file" onChange={handleFileChange} />
-        </div>
-        <button type="submit">Upload File</button>
-      </form>
     </div>
   );
 }

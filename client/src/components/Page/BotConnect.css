@@ -1,0 +1,9 @@
+.pageContainer {
+  padding-top: 100px; 
+}
+
+.head-bottrade {
+  position: relative;
+  top: 40px; 
+  font-size: 3rem;
+}
