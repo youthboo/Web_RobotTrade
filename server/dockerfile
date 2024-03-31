@@ -1,0 +1,14 @@
+FROM node:lts AS build
+WORKDIR /app/server
+
+# Copy root package.json
+COPY package*.json ./  
+
+# Install root dependencies
+RUN npm install --force
+
+# Copy server code
+COPY server/ .
+
+EXPOSE 3000
+CMD ["npm", "start"]
