@@ -32,9 +32,15 @@ function NavbarSidebar() {
       confirmButtonText: 'Yes, logout!'
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location = '/login';
-        Swal.fire('Logged out!', 'You have been logged out.', 'success');
-      }
+        Swal.fire({
+          title: 'Logged out!',
+          text: 'You have been logged out.',
+          icon: 'success',
+          timer: 2000 
+        }).then(() => {
+          window.location = '/login';
+        });
+      }      
     });
   };
 

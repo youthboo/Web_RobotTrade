@@ -5,6 +5,7 @@ import Timeline from './StartTimeline'
 import './BotConnect.css';
 import LotsizeForm from './LotsizeForm'
 import InstallMT4 from './InstallMT4'
+import PaymentCondition from './PaymentCondition'
 
 function BotConnect() {
   return (
@@ -15,6 +16,7 @@ function BotConnect() {
       <LotsizeForm />
       <Trip />
       <InstallMT4 />
+      <PaymentCondition/>
     </div>
   );
 }

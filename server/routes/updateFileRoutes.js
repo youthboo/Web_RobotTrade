@@ -47,29 +47,30 @@ router.post('/upload', upload.single('file'), async (req, res) => {
 });
 
 router.get('/download/:currencyPair', async (req, res) => {
-    try {
+  try {
       const currencyPair = req.params.currencyPair;
-      const file = await FileModel.findOne({ currencyPair: currencyPair });
-  
+      // ค้นหาไฟล์ที่มีคู่สกุลเงินตรงกับที่ระบุ และเรียงลำดับตามวันที่ล่าสุด
+      const file = await FileModel.findOne({ currencyPair: currencyPair }).sort({ createdAt: -1 });
+
       if (!file) {
-        return res.status(404).json({ error: 'File not found' });
+          return res.status(404).json({ error: 'File not found' });
       }
-  
+
       const fileName = file.fileName;
       const filePath = file.filePath;
-  
+
       res.download(filePath, fileName, (err) => {
-        if (err) {
-          console.error('Error downloading file:', err);
-          res.status(500).json({ error: 'Internal server error' });
-        } else {
-          console.log('File downloaded successfully');
-        }
+          if (err) {
+              console.error('Error downloading file:', err);
+              res.status(500).json({ error: 'Internal server error' });
+          } else {
+              console.log('File downloaded successfully');
+          }
       });
-    } catch (error) {
+  } catch (error) {
       console.error('Error downloading file:', error);
       res.status(500).json({ error: 'Internal server error' });
-    }
-  });  
+  }
+});
   
-  module.exports = router;
+module.exports = router;

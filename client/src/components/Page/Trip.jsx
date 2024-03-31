@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import './TripStyles.css';
 import TripData from './TripData';
 import Goldpic2 from '../../assets/backpqy.jpg'
-import BacktestG from '../../assets/image.png'
+import Back1 from '../../assets/goldback.jpg'
+import Back2 from '../../assets/eurusdback.jpg'
+import Back3 from '../../assets/usdjpyback.jpg'
 import symbol2 from '../../assets/eurusd.png';
 import symbol3 from '../../assets/usdjpy.png';
 import Num2 from '../../assets/num2.png';
@@ -66,7 +68,17 @@ function Trip() {
       <h2>Download Bot EA ของคู่เงินที่คุณต้องการ</h2>
       <p>วิธีการติดตั้ง: เลือกคู่เงินที่คุณต้องการ จากนั้น click ที่ชื่อคู่เงิน ไฟล์ bot.ex4 จะถูก download และติดตั้งบนเครื่องของคุณ  <br /> *หมายเหตุ: คุณสามารถ download กี่คู่เงินก็ได้ตามที่คุณต้องการ</p>
       <div className="tripcard">
-        <TripData image={Goldpic2} heading="GOLD" text="Winrate : 1% Drawdown : 99%" />
+      <TripData
+        image={Goldpic2}
+        heading='GOLD'
+        text={(
+          <>
+            Winrate: 87.45% <br />
+            Drawdown: 18.41% <br />
+            Period: 1 Years
+          </>
+        )}
+      />
         <div className="button-container">
         <button className="goldButton" onClick={() => downloadFile('GOLD')}>
           GOLD
@@ -77,12 +89,22 @@ function Trip() {
         </div>
         {isGoldPopupOpen && (
           <div className="popup">
-            <img src={BacktestG} alt="GOLD" />
+            <img src={Back1} alt="GOLD" />
             <button onClick={() => closePopup('GOLD')}>Close</button>
           </div>
         )}
 
-        <TripData image={symbol2} heading="EURUSD" text="Winrate : 1% Drawdown : 99%" />
+      <TripData
+        image={symbol2}
+        heading='EURUSD'
+        text={(
+          <>
+            Winrate: 74.03% <br />
+            Drawdown: 31.11% <br />
+            Period: 3 Years
+          </>
+        )}
+      />
         <div className="button-container">
         <button className="eurusdButton" onClick={() => downloadFile('EURUSD')}>
           EURUSD
@@ -93,12 +115,22 @@ function Trip() {
         </div>
         {isEurusdPopupOpen && (
           <div className="popup">
-            <img src={symbol2} alt="EURUSD" />
+            <img src={Back3} alt="EURUSD" />
             <button onClick={() => closePopup('EURUSD')}>Close</button>
           </div>
         )}
 
-        <TripData image={symbol3} heading="USDJPY" text="Winrate : 1% Drawdown : 99%" />
+      <TripData
+        image={symbol3}
+        heading='USDJPY'
+        text={(
+          <>
+            Winrate : 76.24% <br />
+            Drawdown : 49.04% <br />
+            Period: 4 Years
+          </>
+        )}
+      />
         <div className="button-container">
           <button className="usdjpyButton" onClick={() => downloadFile('USDJPY')}>
           USDJPY
@@ -109,7 +141,7 @@ function Trip() {
         </div>
         {isUsdjpyPopupOpen && (
           <div className="popup">
-            <img src={symbol3} alt="USDJPY" />
+            <img src={Back3} alt="USDJPY" />
             <button onClick={() => closePopup('USDJPY')}>Close</button>
           </div>
         )}

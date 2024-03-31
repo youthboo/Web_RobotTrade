@@ -1,7 +1,9 @@
 import React, { useState } from 'react'; 
 import TripData from '../Page/TripData';
 import Goldpic2 from '../../assets/backpqy.jpg'
-import BacktestG from '../../assets/image.png'
+import Back1 from '../../assets/goldback.jpg'
+import Back2 from '../../assets/eurusdback.jpg'
+import Back3 from '../../assets/usdjpyback.jpg'
 import symbol2 from '../../assets/eurusd.png';
 import symbol3 from '../../assets/usdjpy.png';
 import Axios from 'axios';
@@ -55,47 +57,65 @@ function Backtest() {
       <h1>Resualt of Backtest</h1>
       <p>You can see result of backtest!!!</p>
       <div className='tripcard'>
-        <TripData
-          image={Goldpic2}
-          heading='GOLD'
-          text='Winrate : 1% Drawdown : 99%'
-        />
+      <TripData
+        image={Goldpic2}
+        heading='GOLD'
+        text={(
+          <>
+            Winrate: 87.45% <br />
+            Drawdown: 18.41% <br />
+            Period: 1 Years
+          </>
+        )}
+      />
         <div className='button-container'>
           <button className='goldview' onClick={openGoldPopup}>view</button>
         </div>
         {isGoldPopupOpen && (
           <div className='popup'>
-            <img src={BacktestG} alt='GOLD' />
+            <img src={Back1} alt='GOLD' />
             <button onClick={closeGoldPopup}>Close</button>
           </div>
         )}
   
-        <TripData
-          image={symbol2}
-          heading='EURUSD'
-          text="Winrate : 1% Drawdown : 99% "
-        />
+      <TripData
+        image={symbol2}
+        heading='EURUSD'
+        text={(
+          <>
+            Winrate: 74.03% <br />
+            Drawdown: 31.11% <br />
+            Period: 3 Years
+          </>
+        )}
+      />
         <div className='button-container'>
           <button className='eurusdview' onClick={openEurusdPopup}>view</button>
         </div>
         {isEurusdPopupOpen && (
           <div className='popup'>
-            <img src={symbol2} alt='EURUSD' />
+            <img src={Back2} alt='EURUSD' />
             <button onClick={closeEurusdPopup}>Close</button>
           </div>
         )}
   
-        <TripData
-          image={symbol3}
-          heading='USDJPY'
-          text='Winrate : 1% Drawdown : 99%'
-        />
+      <TripData
+        image={symbol3}
+        heading='USDJPY'
+        text={(
+          <>
+            Winrate : 76.24% <br />
+            Drawdown : 49.04% <br />
+            Period: 4 Years
+          </>
+        )}
+      />
         <div className='button-container'>
           <button className='usdjpyview' onClick={openUsdjpyPopup}>view</button>
         </div>
         {isUsdjpyPopupOpen && (
           <div className='popup'>
-            <img src={symbol3} alt='USDJPY' />
+            <img src={Back3} alt='USDJPY' />
             <button onClick={closeUsdjpyPopup}>Close</button>
           </div>
         )}

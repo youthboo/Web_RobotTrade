@@ -30,7 +30,7 @@ const Login = () => {
                 // Redirect admin to admin dashboard
                 navigate('/admin');
             } else {
-                // Redirect non-admin user to default dashboard
+                // Redirect non-admin user to Home Page
                 navigate('/');
             }
         } catch (error) {

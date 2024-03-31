@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import './NavbarStyles.css';
 import { MenuItems } from './MenuItems';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 class Navbar extends Component {
     state = {
         clicked: false,
-        isLoggedIn: true,
-        username: ''
+        isLoggedIn: false,
+        user: ''
     };
 
     componentDidMount() {
@@ -15,7 +16,7 @@ class Navbar extends Component {
         if (tokenData) {
             try {
                 const token = JSON.parse(tokenData);
-                this.setState({ user: token.user }, () => {
+                this.setState({ user: token.user, isLoggedIn: true }, () => {
                     console.log(this.state);
                 });
             } catch (error) {
@@ -24,15 +25,26 @@ class Navbar extends Component {
             }
         }
     }
-    
 
     handleClicked = () => {
         this.setState({ clicked: !this.state.clicked });
     }
 
     handleLogout = () => {
-        localStorage.removeItem('token');
-        this.setState({ isLoggedIn: false });
+        Swal.fire({
+            title: 'Are you sure you want to logout?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, logout!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.removeItem('token');
+                this.setState({ isLoggedIn: false });
+                Swal.fire('Logged out!', 'You have been logged out.', 'success');
+            }
+        });
     }
 
     render() {
@@ -57,7 +69,7 @@ class Navbar extends Component {
                     {this.state.isLoggedIn ? (
                         <>
                             <li>
-                                <button className=''>{this.state.user}  </button>
+                                <button className=''>{this.state.user}</button>
                             </li>
                             <li>
                                 <button className='nav-links' onClick={this.handleLogout}>Logout</button>
@@ -80,10 +92,4 @@ class Navbar extends Component {
     }
 }
 
-
 export default Navbar;
-
-
-
-
-

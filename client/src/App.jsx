@@ -4,6 +4,7 @@ import Home from './routes/Home';
 import About from './routes/Trade';
 import Portfolio from './routes/Portfolio';
 import Payment from './routes/Payment';
+import Unauthorized from './routes/Unauthorized'; 
 import Signup from './components/Signup/index';
 import Login from './components/Login/index';
 import Dash from './components/Admin/Dashboard';
@@ -18,7 +19,7 @@ import UpdateModel from './components/Admin/UpdateModel';
 function App() {
   
   const user = localStorage.getItem('token');
-  const isAdmin = user ? JSON.parse(user).isAdmin : false; // ตรวจสอบว่าผู้ใช้เป็น admin หรือไม่
+  const isAdmin = user ? JSON.parse(user).isAdmin : false;
 
   return (
     <div className='App'>
@@ -37,7 +38,7 @@ function App() {
         <Route path='/signup' element={<Signup />}/>
         <Route path='/login' element={<Login />}/>
 
-        {isAdmin && (
+        {isAdmin ? (
           <>
             <Route path='/admin' element={<Dash />} />
             <Route path='/admin/summary' element={<Summary />} />
@@ -45,8 +46,15 @@ function App() {
             <Route path='/admin/model' element={<Model />} />
             <Route path='/admin/updatemodel' element={<UpdateModel />} />
           </>
+        ) : (
+          <>
+            <Route path='/admin' element={<Unauthorized />} /> 
+            <Route path='/admin/summary' element={<Unauthorized />} /> 
+            <Route path='/admin/userlist' element={<Unauthorized />} /> 
+            <Route path='/admin/model' element={<Unauthorized />} /> 
+            <Route path='/admin/updatemodel' element={<Unauthorized />} /> 
+          </>
         )}
-
       </Routes>
     </div>
   );
