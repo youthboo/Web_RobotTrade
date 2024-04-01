@@ -63,7 +63,7 @@ function Summary() {
         existingChart.destroy();
       }
   
-      const myChart = new Chart(ctx, {
+      const Chart = new Chart(ctx, {
         type: 'line',
         data: {
           labels,
