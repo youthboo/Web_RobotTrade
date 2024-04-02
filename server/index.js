@@ -16,7 +16,8 @@ const axios = require('axios');
 const { User } = require('./models/user')
 const updateFileRoutes = require('./routes/updateFileRoutes');
 
-cron.schedule('15 0 19 * *', async () => {
+//min hour day * *
+cron.schedule('0 0 1 * *', async () => {
     try {
         console.log('Cron job started at', new Date());
         await saveCommissionData();
@@ -46,19 +47,25 @@ async function saveCommissionData() {
 
         for (const [userLogin, totalProfit] of commissionMap) {
             const commissionAmount = totalProfit * 0.1;
-            const user = await User.findOne({ port: userLogin });
 
-            if (user && user.email) {
-                const commissionData = {
-                    userLogin: userLogin,
-                    commissionPayment: commissionAmount,
-                    datetime: new Date(),
-                    email: user.email 
-                };
+            // เพิ่มเงื่อนไขเพื่อตรวจสอบว่ายอด commission รวมติดลบหรือไม่
+            if (commissionAmount >= 0) {
+                const user = await User.findOne({ port: userLogin });
 
-                await saveCommissionToDatabase(commissionData);
+                if (user && user.email) {
+                    const commissionData = {
+                        userLogin: userLogin,
+                        commissionPayment: commissionAmount,
+                        datetime: new Date(),
+                        email: user.email 
+                    };
+
+                    await saveCommissionToDatabase(commissionData);
+                } else {
+                    console.log(`Email not found for userLogin: ${userLogin}`);
+                }
             } else {
-                console.log(`Email not found for userLogin: ${userLogin}`);
+                console.log(`Total commission amount is negative for userLogin: ${userLogin}. Skipping payment.`);
             }
         }
         console.log('Commission data saved successfully');
