@@ -25,7 +25,7 @@ const UserPort = () => {
 
     const handleButtonClick = () => {
         setShowData(true);
-        togglePopup(); // เรียกใช้ togglePopup เพื่อแสดง Popup เมื่อคลิกที่ปุ่ม "Click!"
+        togglePopup(); 
     };
 
     const togglePopup = () => {
@@ -35,7 +35,11 @@ const UserPort = () => {
     const fetchData = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:5555/api/mt4data');
+            const response = await axios.get('http://localhost:5555/api/mt4data', {
+                params: {
+                    userLogin: userLogin // ส่ง userLogin ใน query parameters
+                }
+            });
             setMt4Data(response.data);
             calculateCommission(response.data);
         } catch (error) {

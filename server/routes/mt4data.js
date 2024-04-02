@@ -3,11 +3,19 @@ const MT4DataModel = require('../models/Mt4Data');
 
 router.get('/mt4data', async (req, res) => {
     try {
-        const currentDate = new Date(); 
-        const currentMonth = currentDate.getMonth() + 1; 
-        const currentYear = currentDate.getFullYear(); 
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentYear = currentDate.getFullYear();
+        const userLogin = req.query.userLogin;
 
-        const mt4Data = await MT4DataModel.find({ datetime: { $gte: new Date(currentYear, currentMonth - 1, 1), $lt: new Date(currentYear, currentMonth, 1) } });
+        // กรองข้อมูลตาม userLogin และช่วงเวลาในเดือนปัจจุบัน
+        const mt4Data = await MT4DataModel.find({
+            datetime: {
+                $gte: new Date(currentYear, currentMonth - 1, 1),
+                $lt: new Date(currentYear, currentMonth, 1)
+            },
+            userLogin: userLogin 
+        });
 
         res.json(mt4Data);
     } catch (error) {
@@ -17,4 +25,3 @@ router.get('/mt4data', async (req, res) => {
 });
 
 module.exports = router;
-
