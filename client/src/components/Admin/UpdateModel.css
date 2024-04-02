@@ -37,6 +37,22 @@
     margin-top: 10px;
     margin-bottom: 20px;
   }
+
+  .container select {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    background-color: #ffffff; /* เพิ่มสีพื้นหลัง */
+    appearance: none; /* เอาไว้ลบลักษณะเดิมของ dropdown arrow */
+    cursor: pointer;
+  }
+  
+  .container select:focus {
+    outline: none; /* เอาไว้ลบเส้นที่เป็นขอบรอบเมื่อ focus */
+  }
+  
   
   .container button {
     background-color: #4CAF50;

@@ -4,16 +4,16 @@ import zmq
 import json
 import tensorflow as tf
 
-model_path = "server/pyserver/gold_15M.h5"
+model_path = "gold15M.h5"
 model = tf.keras.models.load_model(model_path)
 
-file_path = "server/pyserver/scaler_params_gold.npy"
+file_path = "scaler_params_gold.npy"
 scaler = MinMaxScaler()
 scaler.min_, scaler.scale_ = np.load(file_path)
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
-socket.bind("tcp://*:8001")
+socket.bind("tcp://*:8801")
 
 def predict_price(close_prices):
     close_normalized = scaler.transform(np.array(close_prices).reshape(-1, 1))

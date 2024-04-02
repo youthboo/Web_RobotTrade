@@ -53,10 +53,15 @@ function UpdateModel() {
                 <label htmlFor="explain">Description:</label>
                 <input type="text" id="description" name="description" value={description} onChange={handleChange} />
                 </div>
-            <div>
-                <label htmlFor="currencyPair">Currency Pair:</label>
-                <input type="text" id="currencyPair" name="currencyPair" value={currencyPair} onChange={handleChange} />
-            </div>
+                <div>
+                  <label htmlFor="currencyPair">Currency Pair:</label>
+                  <select id="currencyPair" name="currencyPair" value={currencyPair} onChange={handleChange}>
+                      <option value="GOLD">GOLD</option>
+                      <option value="USDJPY">USDJPY</option>
+                      <option value="EURUSD">EURUSD</option>
+                  </select>
+              </div>
+
             <div>
                 <input type="file" name="file" onChange={handleFileChange} />
             </div>

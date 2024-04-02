@@ -49,7 +49,6 @@ router.post('/upload', upload.single('file'), async (req, res) => {
 router.get('/download/:currencyPair', async (req, res) => {
   try {
       const currencyPair = req.params.currencyPair;
-      // ค้นหาไฟล์ที่มีคู่สกุลเงินตรงกับที่ระบุ และเรียงลำดับตามวันที่ล่าสุด
       const file = await FileModel.findOne({ currencyPair: currencyPair }).sort({ createdAt: -1 });
 
       if (!file) {
@@ -72,5 +71,5 @@ router.get('/download/:currencyPair', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
   }
 });
-  
+
 module.exports = router;

@@ -10,7 +10,7 @@ async function startListening() {
 
     // เปิดการเชื่อมต่อ ZeroMQ socket
     const socket = new zmq.Reply();
-    await socket.bind("tcp://*:8000");
+    await socket.bind("tcp://*:8033");
     console.log("Listening for messages from MT4...");
 
     // รอรับข้อมูลจาก MT4
